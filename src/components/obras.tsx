@@ -39,15 +39,6 @@ const items: Gallery4Item[] = [
     image: "works/Flores_Recicladas.jpg",
   },
   {
-    id: "mesa-redonda",
-    title: "mesa redonda",
-    description: "furniture design",
-    href: "works/Mesa_Redonda/Mesa_Redonda.png",
-    image: "works/Mesa_Redonda/Mesa_Redonda.png",
-    // Cuando estén las fotos extra, agregarlas aquí:
-    // extraImages: ["works/Mesa_Redonda/otra_foto.png"],
-  },
-  {
     id: "la-reina-de-babilonia",
     title: "la reina de babilonia",
     description: "digital collage",
