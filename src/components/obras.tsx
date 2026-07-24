@@ -29,7 +29,10 @@ const items: Gallery4Item[] = [
     description: "edited photograph",
     href: "works/La_Parva/La_Parva_Japan.jpg",
     image: "works/La_Parva/La_Parva_Japan.jpg",
-    extraImages: ["works/La_Parva/La_Parva_Japan_Enmarcado.png"],
+    extraImages: [
+      "works/La_Parva/La_Parva_Japan_Enmarcado.png",
+      "works/La_Parva/La_Parva_Front.jpeg",
+    ],
   },
   {
     id: "flores-recicladas",
