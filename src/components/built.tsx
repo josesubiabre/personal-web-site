@@ -52,7 +52,7 @@ const PROYECTOS: Proyecto[] = [
       "an early-stage product and brand exploring everyday objects for older adults.",
     stack: "",
     images: [],
-    links: [{ label: "view project", href: "" }],
+    links: [{ label: "view project", href: "https://paranonna.cl/" }],
   },
 ];
 
