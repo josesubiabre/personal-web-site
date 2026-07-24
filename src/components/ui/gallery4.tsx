@@ -17,6 +17,9 @@ export interface Gallery4Item {
   description: string;
   href: string;
   image: string;
+  // Imágenes adicionales que se muestran al scrollear en la vista expandida
+  // (p. ej. la obra enmarcada o detalles)
+  extraImages?: string[];
   // Enlace a Spotify (open.spotify.com/...) o Suno (suno.com/song/...) —
   // muestra el reproductor embebido en la vista expandida
   music?: string;

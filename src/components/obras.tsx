@@ -27,8 +27,9 @@ const items: Gallery4Item[] = [
     id: "la-parva-japan",
     title: "la parva",
     description: "edited photograph",
-    href: "works/La_Parva_Japan.jpg",
-    image: "works/La_Parva_Japan.jpg",
+    href: "works/La_Parva/La_Parva_Japan.jpg",
+    image: "works/La_Parva/La_Parva_Japan.jpg",
+    extraImages: ["works/La_Parva/La_Parva_Japan_Enmarcado.png"],
   },
   {
     id: "flores-recicladas",
@@ -124,7 +125,7 @@ export default function Obras() {
                 navigate(deltaX < 0 ? 1 : -1); // swipe a la izquierda → siguiente
               }
             }}
-            className="fixed inset-0 z-30 flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm cursor-zoom-out md:p-10"
+            className="fixed inset-0 z-30 flex overflow-y-auto bg-black/70 p-4 backdrop-blur-sm cursor-zoom-out md:p-10"
           >
             <motion.figure
               initial={{ scale: 0.4, opacity: 0 }}
@@ -132,7 +133,7 @@ export default function Obras() {
               exit={{ scale: 0.4, opacity: 0 }}
               transition={{ type: "spring", stiffness: 220, damping: 26 }}
               onClick={(e) => e.stopPropagation()}
-              className="relative m-0 max-h-full max-w-full cursor-default"
+              className="relative m-auto max-w-full cursor-default"
             >
               <motion.img
                 key={selected.id}
@@ -171,6 +172,18 @@ export default function Obras() {
                   Close ✕
                 </button>
               </figcaption>
+
+              {selected.extraImages?.map((src) => (
+                <motion.img
+                  key={src}
+                  src={src}
+                  alt={selected.title}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.2 }}
+                  className="mt-6 max-h-[80vh] max-w-full rounded-2xl object-contain shadow-2xl"
+                />
+              ))}
             </motion.figure>
 
             {/* Zonas táctiles en los bordes: anterior / siguiente */}
@@ -181,7 +194,7 @@ export default function Obras() {
                 e.stopPropagation();
                 navigate(-1);
               }}
-              className="absolute inset-y-0 left-0 z-10 flex w-[18%] max-w-28 items-center justify-start pl-2 text-white/40 transition-colors hover:text-white active:text-white md:pl-4"
+              className="fixed inset-y-0 left-0 z-10 flex w-[18%] max-w-28 items-center justify-start pl-2 text-white/40 transition-colors hover:text-white active:text-white md:pl-4"
             >
               <span className="text-4xl leading-none">‹</span>
             </button>
@@ -192,7 +205,7 @@ export default function Obras() {
                 e.stopPropagation();
                 navigate(1);
               }}
-              className="absolute inset-y-0 right-0 z-10 flex w-[18%] max-w-28 items-center justify-end pr-2 text-white/40 transition-colors hover:text-white active:text-white md:pr-4"
+              className="fixed inset-y-0 right-0 z-10 flex w-[18%] max-w-28 items-center justify-end pr-2 text-white/40 transition-colors hover:text-white active:text-white md:pr-4"
             >
               <span className="text-4xl leading-none">›</span>
             </button>

@@ -8,7 +8,10 @@
       "PowerShell(git -C \"c:\\\\Users\\\\subia\\\\Desktop\\\\portfolio-arte\" status -sb)",
       "PowerShell(git -C \"c:\\\\Users\\\\subia\\\\Desktop\\\\portfolio-arte\" log --oneline -3)",
       "PowerShell(Get-ChildItem \"c:\\\\Users\\\\subia\\\\Desktop\\\\portfolio-arte\\\\public\\\\built\" | Select-Object Name, @{N='MB';E={[math]::Round\\($_.Length/1MB,2\\)}})",
-      "PowerShell(npx tsc --noEmit)"
+      "PowerShell(npx tsc --noEmit)",
+      "PowerShell(gh repo view --json name,nameWithOwner,url 2>$null)",
+      "PowerShell(git remote set-url origin https://github.com/josesubiabre/personal-web-site.git)",
+      "PowerShell(git fetch origin)"
     ]
   }
 }
