@@ -181,7 +181,7 @@ export default function Obras() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.2 }}
-                  className="mt-6 max-h-[80vh] max-w-full rounded-2xl object-contain shadow-2xl"
+                  className="mt-6 max-h-[80vh] w-full rounded-2xl bg-white object-contain p-3 shadow-2xl md:p-4"
                 />
               ))}
             </motion.figure>
