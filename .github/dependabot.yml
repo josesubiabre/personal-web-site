@@ -1,0 +1,14 @@
+# Avisa con un PR cuando haya actualizaciones de seguridad o versiones
+# nuevas de dependencias npm y de las actions del workflow.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly

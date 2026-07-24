@@ -47,16 +47,24 @@ const items: Gallery4Item[] = [
   },
 ];
 
-// Convierte un enlace normal de Spotify o Suno al formato embebible del reproductor
+// Convierte un enlace normal de Spotify o Suno al formato embebible del
+// reproductor. Solo acepta URLs cuyo dominio sea exactamente el esperado,
+// para que un link mal pegado no cargue un iframe de otro sitio.
 function toEmbed(url: string): { src: string; height: number } | null {
-  if (url.includes("open.spotify.com/"))
+  let parsed: URL;
+  try {
+    parsed = new URL(url);
+  } catch {
+    return null;
+  }
+  if (parsed.hostname === "open.spotify.com")
     return {
-      src: url.replace("open.spotify.com/", "open.spotify.com/embed/").split("?")[0],
+      src: `https://open.spotify.com/embed${parsed.pathname}`,
       height: 80,
     };
-  if (url.includes("suno.com/song/"))
+  if (parsed.hostname === "suno.com" && parsed.pathname.startsWith("/song/"))
     return {
-      src: url.replace("suno.com/song/", "suno.com/embed/").split("?")[0],
+      src: `https://suno.com/embed/${parsed.pathname.slice("/song/".length)}`,
       height: 240,
     };
   return null;
