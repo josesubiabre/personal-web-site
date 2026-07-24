@@ -14,10 +14,12 @@ export const IMAGES = [
     "main/Morocco_Moto.jpg",
     "main/Morocco_Pray.jpg",
     "main/Papa_Muir_Woods.jpg",
-    "main/San_Francisco_Marina.jpg",
+    "main/Peregrino.jpeg",
     "main/San_Francisco_Marina_dia.jpg",
     "main/Tenerife_Airport.jpg",
     "main/Tenerife_Los_Gigantes.jpg",
+    "main/Tikal.jpeg",
+    "main/Tikal_Templo_Cinco.jpeg",
     "main/Atacama.JPG",
 ];
 

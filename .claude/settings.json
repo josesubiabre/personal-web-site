@@ -11,7 +11,8 @@
       "PowerShell(npx tsc --noEmit)",
       "PowerShell(gh repo view --json name,nameWithOwner,url 2>$null)",
       "PowerShell(git remote set-url origin https://github.com/josesubiabre/personal-web-site.git)",
-      "PowerShell(git fetch origin)"
+      "PowerShell(git fetch origin)",
+      "Bash(git -C \"c:/Users/subia/Desktop/portfolio-arte\" status --short)"
     ]
   }
 }
