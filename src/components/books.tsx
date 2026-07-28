@@ -148,12 +148,16 @@ export default function Books() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
-  // Radio del anillo 3D según el ancho de pantalla
+  // Radio del anillo 3D: la distancia entre tarjetas vecinas es
+  // 2·r·sin(180°/N), así que con más libros hace falta más radio para que
+  // las portadas (300px) no queden pegadas; en móvil se compensa con la
+  // escala del contenedor para que igual quepa en pantalla
+  const radioSegunAncho = () => (window.innerWidth < 640 ? 620 : 600);
   const [radius, setRadius] = useState(() =>
-    typeof window !== "undefined" && window.innerWidth < 640 ? 450 : 600,
+    typeof window !== "undefined" ? radioSegunAncho() : 600,
   );
   useEffect(() => {
-    const onResize = () => setRadius(window.innerWidth < 640 ? 450 : 600);
+    const onResize = () => setRadius(radioSegunAncho());
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
   }, []);
@@ -185,7 +189,7 @@ export default function Books() {
           <CircularGallery
             items={LIBROS}
             radius={radius}
-            className="translate-y-[9%] scale-[0.72] sm:scale-[0.88]"
+            className="translate-y-[9%] scale-[0.58] sm:scale-[0.88]"
             onItemClick={(_, i) => setSelected(LIBROS[i])}
           />
         </div>
