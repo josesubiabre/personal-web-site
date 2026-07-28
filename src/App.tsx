@@ -3,6 +3,7 @@ import IntroAnimation from "@/components/ui/scroll-morph-hero";
 import SobreMi from "@/components/sobre-mi";
 import Obras from "@/components/obras";
 import Built from "@/components/built";
+import Books from "@/components/books";
 
 export default function App() {
   const [hash, setHash] = useState(window.location.hash);
@@ -14,7 +15,8 @@ export default function App() {
   }, []);
 
   // La página principal (sin hash o #inicio) es el hero animado;
-  // #obras muestra la galería carrusel, #built los proyectos y #sobre-mi la biografía
+  // #obras muestra la galería carrusel, #built los proyectos,
+  // #books la galería de libros y #sobre-mi la biografía
   const vista =
     hash === "#sobre-mi"
       ? "sobre-mi"
@@ -22,7 +24,9 @@ export default function App() {
         ? "obras"
         : hash === "#built"
           ? "built"
-          : "inicio";
+          : hash === "#books"
+            ? "books"
+            : "inicio";
 
   return (
     <div
@@ -47,6 +51,9 @@ export default function App() {
           <a href="#built" className="transition-colors hover:text-blue-700">
             Built
           </a>
+          <a href="#books" className="transition-colors hover:text-blue-700">
+            Books
+          </a>
           <a href="#sobre-mi" className="transition-colors hover:text-blue-700">
             About
           </a>
@@ -63,6 +70,8 @@ export default function App() {
         <SobreMi />
       ) : vista === "built" ? (
         <Built />
+      ) : vista === "books" ? (
+        <Books />
       ) : vista === "inicio" ? (
         <IntroAnimation />
       ) : (
