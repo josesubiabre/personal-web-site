@@ -36,8 +36,13 @@ export default function App() {
           : "relative min-h-dvh w-full bg-[#FAFAFA]"
       }
     >
-      {/* Cabecera superpuesta */}
-      <header className="absolute inset-x-0 top-0 z-20 flex flex-col items-center gap-2 px-6 py-5 md:flex-row md:items-baseline md:justify-between md:px-10 md:py-6">
+      {/* Cabecera superpuesta; en #books la página scrollea 500vh con la
+          galería sticky, así que el header va fijo para no perder el menú */}
+      <header
+        className={`${
+          vista === "books" ? "fixed" : "absolute"
+        } inset-x-0 top-0 z-20 flex flex-col items-center gap-2 px-6 py-5 md:flex-row md:items-baseline md:justify-between md:px-10 md:py-6`}
+      >
         <a
           href="#inicio"
           className="font-serif text-lg lowercase tracking-wide text-gray-900 no-underline"
