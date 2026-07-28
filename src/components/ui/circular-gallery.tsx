@@ -37,6 +37,11 @@ const CircularGallery = React.forwardRef<HTMLDivElement, CircularGalleryProps>(
     const [isScrolling, setIsScrolling] = useState(false);
     const scrollTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const animationFrameRef = useRef<number | null>(null);
+    // La rotación total = rotación por scroll + offset manual (arrastre táctil
+    // y auto-rotación), así el scroll vertical no "resetea" lo arrastrado
+    const scrollRotationRef = useRef(0);
+    const offsetRef = useRef(0);
+    const dragRef = useRef({ dragging: false, lastX: 0, moved: 0 });
 
     // Effect to handle scroll-based rotation
     useEffect(() => {
@@ -51,7 +56,8 @@ const CircularGallery = React.forwardRef<HTMLDivElement, CircularGalleryProps>(
         const scrollProgress =
           scrollableHeight > 0 ? window.scrollY / scrollableHeight : 0;
         const scrollRotation = scrollProgress * 360;
-        setRotation(scrollRotation);
+        scrollRotationRef.current = scrollRotation;
+        setRotation(scrollRotation + offsetRef.current);
 
         scrollTimeoutRef.current = setTimeout(() => {
           setIsScrolling(false);
@@ -70,8 +76,9 @@ const CircularGallery = React.forwardRef<HTMLDivElement, CircularGalleryProps>(
     // Effect for auto-rotation when not scrolling
     useEffect(() => {
       const autoRotate = () => {
-        if (!isScrolling) {
-          setRotation((prev) => prev + autoRotateSpeed);
+        if (!isScrolling && !dragRef.current.dragging) {
+          offsetRef.current += autoRotateSpeed;
+          setRotation(scrollRotationRef.current + offsetRef.current);
         }
         animationFrameRef.current = requestAnimationFrame(autoRotate);
       };
@@ -96,7 +103,27 @@ const CircularGallery = React.forwardRef<HTMLDivElement, CircularGalleryProps>(
           "relative w-full h-full flex items-center justify-center",
           className,
         )}
-        style={{ perspective: "2000px" }}
+        style={{ perspective: "2000px", touchAction: "pan-y" }}
+        onTouchStart={(e) => {
+          dragRef.current = {
+            dragging: true,
+            lastX: e.touches[0].clientX,
+            moved: 0,
+          };
+        }}
+        onTouchMove={(e) => {
+          const d = dragRef.current;
+          if (!d.dragging) return;
+          const x = e.touches[0].clientX;
+          const delta = x - d.lastX;
+          d.lastX = x;
+          d.moved += Math.abs(delta);
+          offsetRef.current += delta * 0.35;
+          setRotation(scrollRotationRef.current + offsetRef.current);
+        }}
+        onTouchEnd={() => {
+          dragRef.current.dragging = false;
+        }}
         {...props}
       >
         <div
@@ -120,7 +147,15 @@ const CircularGallery = React.forwardRef<HTMLDivElement, CircularGalleryProps>(
                 key={item.photo.url}
                 role="group"
                 aria-label={item.common}
-                onClick={onItemClick ? () => onItemClick(item, i) : undefined}
+                onClick={
+                  onItemClick
+                    ? () => {
+                        // Un arrastre no cuenta como click sobre la tarjeta
+                        if (dragRef.current.moved > 10) return;
+                        onItemClick(item, i);
+                      }
+                    : undefined
+                }
                 className={cn(
                   "absolute w-[300px] h-[400px]",
                   onItemClick && "cursor-pointer",
