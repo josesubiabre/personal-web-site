@@ -34,7 +34,7 @@ const LIBROS: GalleryItem[] = [
     common: "poor charlie's almanack",
     binomial: "charlie munger & peter d. kaufman",
     photo: {
-      url: "books/Poor_Charlies_Almanack.jpg",
+      url: "books/Kaufman_Peter_D_Charlie_Munger_Poor_Charlies_Almanack.jpg",
       text: "Poor Charlie's Almanack book cover",
     },
   },
