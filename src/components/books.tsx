@@ -87,6 +87,17 @@ const LIBROS: Libro[] = [
     },
   },
   {
+    common: "shoe dog",
+    binomial: "phil knight",
+    genero: "business · memoir",
+    resena:
+      "The candid memoir of Nike's founder: starting with fifty dollars borrowed from his father and a crazy idea — importing running shoes from Japan — Knight tells the messy, perilous and chaotic story behind one of the world's most iconic brands.",
+    photo: {
+      url: "books/Knight_Phil_Shoe_Dog.png",
+      text: "Shoe Dog book cover",
+    },
+  },
+  {
     common: "discipline is destiny",
     binomial: "ryan holiday",
     genero: "philosophy · stoicism",
