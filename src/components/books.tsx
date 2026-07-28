@@ -47,6 +47,14 @@ const LIBROS: GalleryItem[] = [
     },
   },
   {
+    common: "the sovereign individual",
+    binomial: "james dale davidson & william rees-mogg",
+    photo: {
+      url: "books/Davidson_James_Dale_Rees-Mogg_Lord_Williams_The_Sovereign_individual.jpg",
+      text: "The Sovereign Individual book cover",
+    },
+  },
+  {
     common: "build",
     binomial: "tony fadell",
     photo: {
