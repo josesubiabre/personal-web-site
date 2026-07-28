@@ -24,10 +24,15 @@ interface CircularGalleryProps extends HTMLAttributes<HTMLDivElement> {
   radius?: number;
   /** Controls the speed of auto-rotation when not scrolling. */
   autoRotateSpeed?: number;
+  /** Called when a card is clicked. */
+  onItemClick?: (item: GalleryItem, index: number) => void;
 }
 
 const CircularGallery = React.forwardRef<HTMLDivElement, CircularGalleryProps>(
-  ({ items, className, radius = 600, autoRotateSpeed = 0.02, ...props }, ref) => {
+  (
+    { items, className, radius = 600, autoRotateSpeed = 0.02, onItemClick, ...props },
+    ref,
+  ) => {
     const [rotation, setRotation] = useState(0);
     const [isScrolling, setIsScrolling] = useState(false);
     const scrollTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -115,7 +120,11 @@ const CircularGallery = React.forwardRef<HTMLDivElement, CircularGalleryProps>(
                 key={item.photo.url}
                 role="group"
                 aria-label={item.common}
-                className="absolute w-[300px] h-[400px]"
+                onClick={onItemClick ? () => onItemClick(item, i) : undefined}
+                className={cn(
+                  "absolute w-[300px] h-[400px]",
+                  onItemClick && "cursor-pointer",
+                )}
                 style={{
                   transform: `rotateY(${itemAngle}deg) translateZ(${radius}px)`,
                   left: "50%",
