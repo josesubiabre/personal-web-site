@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowDown } from "lucide-react";
 import { CircularGallery, type GalleryItem } from "@/components/ui/circular-gallery";
@@ -81,16 +81,23 @@ const LIBROS: GalleryItem[] = [
 ];
 
 export default function Books() {
-  // El alto del contenedor da el recorrido de scroll que gira la galería
-  const scrollRef = useRef<HTMLDivElement>(null);
-
   // Al entrar desde otra vista, partir con el primer libro al frente
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
+  // Radio del anillo 3D según el ancho de pantalla
+  const [radius, setRadius] = useState(() =>
+    typeof window !== "undefined" && window.innerWidth < 640 ? 450 : 600,
+  );
+  useEffect(() => {
+    const onResize = () => setRadius(window.innerWidth < 640 ? 450 : 600);
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
   return (
-    <div ref={scrollRef} className="w-full" style={{ height: "500vh" }}>
+    <div className="w-full" style={{ height: "500vh" }}>
       <div className="sticky top-0 flex h-dvh w-full flex-col items-center overflow-hidden">
         {/* Título y descripción */}
         <motion.div
@@ -112,7 +119,12 @@ export default function Books() {
         </motion.div>
 
         <div className="h-full w-full">
-          <CircularGallery items={LIBROS} scrollRef={scrollRef} />
+          {/* Bajamos y encogemos un poco el anillo para despejar el título */}
+          <CircularGallery
+            items={LIBROS}
+            radius={radius}
+            className="translate-y-[9%] scale-[0.72] sm:scale-[0.88]"
+          />
         </div>
       </div>
     </div>

@@ -1,150 +1,157 @@
-import { useEffect, useState, type RefObject } from "react";
-import {
-  AnimatePresence,
-  motion,
-  useMotionValueEvent,
-  useScroll,
-  useTransform,
-} from "framer-motion";
+import React, { useState, useEffect, useRef, type HTMLAttributes } from "react";
+import { cn } from "@/lib/utils";
 
-// Galería circular movida por scroll: las tarjetas orbitan una rueda cuyo
-// centro está en el borde inferior del viewport; al hacer scroll la rueda
-// gira hasta dejar el último item al frente. La ficha del item activo se
-// muestra al centro del arco.
-export type GalleryItem = {
-  common: string; // línea principal (título)
-  binomial: string; // línea secundaria (autor / nombre científico)
+// Galería circular 3D: las tarjetas se distribuyen en un anillo (rotateY +
+// translateZ) que gira con el scroll de la página y auto-rota suave cuando
+// no se está scrolleando.
+
+// Define the type for a single gallery item
+export interface GalleryItem {
+  common: string;
+  binomial: string;
   photo: {
     url: string;
-    text: string; // alt de la imagen
-    pos?: string; // object-position opcional
-    by?: string; // crédito opcional
+    text: string;
+    pos?: string;
+    by?: string;
   };
-};
+}
 
-type CircularGalleryProps = {
+// Define the props for the CircularGallery component
+interface CircularGalleryProps extends HTMLAttributes<HTMLDivElement> {
   items: GalleryItem[];
-  // Contenedor alto (ej. 500vh) cuyo progreso de scroll mueve la rueda.
-  // Sin ref, usa el scroll de la página completa.
-  scrollRef?: RefObject<HTMLElement | null>;
-};
-
-// Radio de la rueda, ancho de tarjeta y cuánto baja el centro de la rueda
-// respecto del borde inferior del viewport, según el ancho de la ventana
-function medidas(width: number): {
-  radius: number;
-  cardW: number;
-  offset: number;
-} {
-  if (width < 640) return { radius: 300, cardW: 132, offset: 140 };
-  if (width < 1024) return { radius: 440, cardW: 176, offset: 200 };
-  return { radius: 560, cardW: 208, offset: 260 };
+  /** Controls how far the items are from the center. */
+  radius?: number;
+  /** Controls the speed of auto-rotation when not scrolling. */
+  autoRotateSpeed?: number;
 }
 
-export function CircularGallery({ items, scrollRef }: CircularGalleryProps) {
-  const step = 360 / items.length;
+const CircularGallery = React.forwardRef<HTMLDivElement, CircularGalleryProps>(
+  ({ items, className, radius = 600, autoRotateSpeed = 0.02, ...props }, ref) => {
+    const [rotation, setRotation] = useState(0);
+    const [isScrolling, setIsScrolling] = useState(false);
+    const scrollTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const animationFrameRef = useRef<number | null>(null);
 
-  const { scrollYProgress } = useScroll(
-    scrollRef
-      ? { target: scrollRef, offset: ["start start", "end end"] }
-      : undefined,
-  );
+    // Effect to handle scroll-based rotation
+    useEffect(() => {
+      const handleScroll = () => {
+        setIsScrolling(true);
+        if (scrollTimeoutRef.current) {
+          clearTimeout(scrollTimeoutRef.current);
+        }
 
-  // Gira justo lo necesario para que cada item pase por el frente una vez
-  const rotation = useTransform(
-    scrollYProgress,
-    [0, 1],
-    [0, -step * (items.length - 1)],
-  );
+        const scrollableHeight =
+          document.documentElement.scrollHeight - window.innerHeight;
+        const scrollProgress =
+          scrollableHeight > 0 ? window.scrollY / scrollableHeight : 0;
+        const scrollRotation = scrollProgress * 360;
+        setRotation(scrollRotation);
 
-  const [active, setActive] = useState(0);
-  useMotionValueEvent(rotation, "change", (r) => {
-    const i = Math.round(-r / step);
-    setActive(Math.min(items.length - 1, Math.max(0, i)));
-  });
+        scrollTimeoutRef.current = setTimeout(() => {
+          setIsScrolling(false);
+        }, 150);
+      };
 
-  const [{ radius, cardW, offset }, setMedidas] = useState(() =>
-    medidas(typeof window === "undefined" ? 1280 : window.innerWidth),
-  );
-  useEffect(() => {
-    const onResize = () => setMedidas(medidas(window.innerWidth));
-    window.addEventListener("resize", onResize);
-    return () => window.removeEventListener("resize", onResize);
-  }, []);
+      window.addEventListener("scroll", handleScroll, { passive: true });
+      return () => {
+        window.removeEventListener("scroll", handleScroll);
+        if (scrollTimeoutRef.current) {
+          clearTimeout(scrollTimeoutRef.current);
+        }
+      };
+    }, []);
 
-  const cardH = Math.round(cardW * 1.5); // proporción retrato 2:3
-  const item = items[active];
+    // Effect for auto-rotation when not scrolling
+    useEffect(() => {
+      const autoRotate = () => {
+        if (!isScrolling) {
+          setRotation((prev) => prev + autoRotateSpeed);
+        }
+        animationFrameRef.current = requestAnimationFrame(autoRotate);
+      };
 
-  // Borde superior de la tarjeta frontal medido desde el borde inferior del
-  // viewport: la ficha se ancla justo encima para no tapar la portada
-  const fichaBottom = radius + cardH / 2 - offset + 16;
+      animationFrameRef.current = requestAnimationFrame(autoRotate);
 
-  return (
-    <div className="relative h-full w-full">
-      {/* Ficha del item al frente */}
+      return () => {
+        if (animationFrameRef.current) {
+          cancelAnimationFrame(animationFrameRef.current);
+        }
+      };
+    }, [isScrolling, autoRotateSpeed]);
+
+    const anglePerItem = 360 / items.length;
+
+    return (
       <div
-        className="pointer-events-none absolute inset-x-0 z-10 flex flex-col items-center px-6 text-center"
-        style={{ bottom: fichaBottom }}
+        ref={ref}
+        role="region"
+        aria-label="Circular 3D Gallery"
+        className={cn(
+          "relative w-full h-full flex items-center justify-center",
+          className,
+        )}
+        style={{ perspective: "2000px" }}
+        {...props}
       >
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={active}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.25 }}
-          >
-            <h3 className="font-serif text-2xl tracking-tight text-black sm:text-3xl">
-              {item.common}
-            </h3>
-            <p className="mt-1 text-sm text-gray-500">{item.binomial}</p>
-            {item.photo.by && (
-              <p className="mt-1 text-xs text-gray-400">photo: {item.photo.by}</p>
-            )}
-          </motion.div>
-        </AnimatePresence>
-        <p className="mt-3 text-[0.65rem] uppercase tracking-[0.2em] text-gray-400">
-          {active + 1} / {items.length}
-        </p>
-      </div>
+        <div
+          className="relative w-full h-full"
+          style={{
+            transform: `rotateY(${rotation}deg)`,
+            transformStyle: "preserve-3d",
+          }}
+        >
+          {items.map((item, i) => {
+            const itemAngle = i * anglePerItem;
+            const totalRotation = rotation % 360;
+            const relativeAngle = (itemAngle + totalRotation + 360) % 360;
+            const normalizedAngle = Math.abs(
+              relativeAngle > 180 ? 360 - relativeAngle : relativeAngle,
+            );
+            const opacity = Math.max(0.3, 1 - normalizedAngle / 180);
 
-      {/* Rueda: un punto centrado bajo el borde inferior del viewport; cada
-          tarjeta orbita alrededor con orientación tangencial */}
-      <motion.div
-        style={{ rotate: rotation, top: `calc(100% + ${offset}px)` }}
-        className="absolute left-1/2 h-0 w-0"
-      >
-        {items.map((it, i) => (
-          <div
-            key={it.photo.url}
-            className="absolute transition-transform duration-300"
-            style={{
-              width: cardW,
-              height: cardH,
-              left: -cardW / 2,
-              top: -cardH / 2,
-              transform: `rotate(${i * step}deg) translateY(-${radius}px) scale(${
-                i === active ? 1.06 : 0.94
-              })`,
-            }}
-          >
-            <figure
-              className={`h-full w-full overflow-hidden rounded-lg shadow-xl transition-opacity duration-300 ${
-                i === active ? "opacity-100" : "opacity-80"
-              }`}
-            >
-              <img
-                src={it.photo.url}
-                alt={it.photo.text}
-                loading="lazy"
-                draggable={false}
-                className="h-full w-full select-none object-cover"
-                style={it.photo.pos ? { objectPosition: it.photo.pos } : undefined}
-              />
-            </figure>
-          </div>
-        ))}
-      </motion.div>
-    </div>
-  );
-}
+            return (
+              <div
+                key={item.photo.url}
+                role="group"
+                aria-label={item.common}
+                className="absolute w-[300px] h-[400px]"
+                style={{
+                  transform: `rotateY(${itemAngle}deg) translateZ(${radius}px)`,
+                  left: "50%",
+                  top: "50%",
+                  marginLeft: "-150px",
+                  marginTop: "-200px",
+                  opacity: opacity,
+                  transition: "opacity 0.3s linear",
+                }}
+              >
+                <div className="relative w-full h-full rounded-lg shadow-2xl overflow-hidden group border border-border bg-card/70 dark:bg-card/30 backdrop-blur-lg">
+                  <img
+                    src={item.photo.url}
+                    alt={item.photo.text}
+                    className="absolute inset-0 w-full h-full object-cover"
+                    style={{ objectPosition: item.photo.pos || "center" }}
+                  />
+                  <div className="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent text-white">
+                    <h2 className="text-xl font-bold">{item.common}</h2>
+                    <em className="text-sm italic opacity-80">{item.binomial}</em>
+                    {item.photo.by && (
+                      <p className="text-xs mt-2 opacity-70">
+                        Photo by: {item.photo.by}
+                      </p>
+                    )}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
+  },
+);
+
+CircularGallery.displayName = "CircularGallery";
+
+export { CircularGallery };
