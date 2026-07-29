@@ -73,6 +73,15 @@ function toEmbed(url: string): { src: string; height: number } | null {
   return null;
 }
 
+// Descripción en español de cada obra, por id; si falta, se usa la de inglés
+const DESCRIPCIONES_ES: Record<string, string> = {
+  "tokyo-afterglow": "JOTD · un proyecto de música con IA",
+  perdidos: "JOTD · un proyecto de música con IA",
+  "la-parva-japan": "fotografía editada",
+  "flores-recicladas": "collage digital",
+  "la-reina-de-babilonia": "collage digital",
+};
+
 export default function Obras({ lang }: { lang: "en" | "es" }) {
   const [selected, setSelected] = useState<Gallery4Item | null>(null);
   const musicEmbed = selected?.music ? toEmbed(selected.music) : null;
@@ -110,18 +119,26 @@ export default function Obras({ lang }: { lang: "en" | "es" }) {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
+  const localizedItems =
+    lang === "es"
+      ? items.map((item) => ({
+          ...item,
+          description: DESCRIPCIONES_ES[item.id] ?? item.description,
+        }))
+      : items;
+
   return (
     <main className="pt-14">
       <Gallery4
         title={copy.title}
         description={copy.description}
-        items={items}
+        items={localizedItems}
         onItemClick={setSelected}
       />
 
       {items.length === 0 && (
         <p className="px-6 pb-32 text-center text-sm text-gray-400 md:px-10">
-          coming soon
+          {lang === "en" ? "coming soon" : "próximamente"}
         </p>
       )}
 

@@ -307,7 +307,7 @@ export default function IntroAnimation({ lang }: { lang: "en" | "es" }) {
                         transition={{ duration: 1 }}
                         className="px-6 text-lg font-medium tracking-tight text-gray-800 sm:text-2xl md:text-3xl"
                     >
-                        photography · art · music
+                        {lang === "en" ? "photography · art · music" : "fotografía · arte · música"}
                     </motion.h1>
                 </div>
 
@@ -317,11 +317,12 @@ export default function IntroAnimation({ lang }: { lang: "en" | "es" }) {
                     className="absolute top-[10%] z-10 flex flex-col items-center justify-center text-center pointer-events-none px-4"
                 >
                     <h2 className="text-3xl md:text-5xl font-semibold text-gray-900 tracking-tight mb-4">
-                        Explore the work
+                        {lang === "en" ? "Explore the work" : "Explora la obra"}
                     </h2>
                     <p className="text-sm md:text-base text-gray-600 max-w-lg leading-relaxed">
-                        A selection of personal works. <br className="hidden md:block" />
-                        Scroll to browse the selection.
+                        {lang === "en" ? "A selection of personal works." : "Una selección de obras personales."}{" "}
+                        <br className="hidden md:block" />
+                        {lang === "en" ? "Scroll to browse the selection." : "Haz scroll para recorrer la selección."}
                     </p>
                 </motion.div>
 
@@ -457,7 +458,7 @@ export default function IntroAnimation({ lang }: { lang: "en" | "es" }) {
                                     onClick={() => setSelected(null)}
                                     className="text-xs uppercase tracking-[0.14em] text-white/70 transition-colors hover:text-white"
                                 >
-                                    Close ✕
+                                    {lang === "en" ? "Close ✕" : "Cerrar ✕"}
                                 </button>
                             </figcaption>
                         </motion.figure>
@@ -465,7 +466,7 @@ export default function IntroAnimation({ lang }: { lang: "en" | "es" }) {
                         {/* Zonas táctiles en los bordes: anterior / siguiente */}
                         <button
                             type="button"
-                            aria-label="Previous photo"
+                            aria-label={lang === "en" ? "Previous photo" : "Foto anterior"}
                             onClick={(e) => {
                                 e.stopPropagation();
                                 setSelected((selected - 1 + TOTAL_IMAGES) % TOTAL_IMAGES);
@@ -476,7 +477,7 @@ export default function IntroAnimation({ lang }: { lang: "en" | "es" }) {
                         </button>
                         <button
                             type="button"
-                            aria-label="Next photo"
+                            aria-label={lang === "en" ? "Next photo" : "Foto siguiente"}
                             onClick={(e) => {
                                 e.stopPropagation();
                                 setSelected((selected + 1) % TOTAL_IMAGES);

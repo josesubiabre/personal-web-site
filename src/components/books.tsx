@@ -5,16 +5,20 @@ import { CircularGallery, type GalleryItem } from "@/components/ui/circular-gall
 
 // Libros que marcaron mi forma de pensar. Para agregar uno: pon la portada
 // en public/books/ y añade aquí una entrada con título, autor, género y
-// reseña (resumen de la descripción de Goodreads).
-type Libro = GalleryItem & { genero: string; resena: string };
+// reseña (resumen de la descripción de Goodreads) en ambos idiomas.
+type Textos = { en: string; es: string };
+
+type Libro = GalleryItem & { genero: Textos; resena: Textos };
 
 const LIBROS: Libro[] = [
   {
     common: "siddhartha",
     binomial: "hermann hesse",
-    genero: "fiction · philosophy",
-    resena:
-      "A young Brahmin leaves his family for a contemplative life, then, restless, discards it for one of the flesh. Near despair, Siddhartha comes to a river where he hears a unique sound — the true beginning of his life: suffering, rejection, peace and, finally, wisdom.",
+    genero: { en: "fiction · philosophy", es: "ficción · filosofía" },
+    resena: {
+      en: "A young Brahmin leaves his family for a contemplative life, then, restless, discards it for one of the flesh. Near despair, Siddhartha comes to a river where he hears a unique sound — the true beginning of his life: suffering, rejection, peace and, finally, wisdom.",
+      es: "Un joven brahmán abandona a su familia por una vida contemplativa y luego, inquieto, la deja por una vida carnal. Al borde de la desesperación, Siddhartha llega a un río donde escucha un sonido único — el verdadero comienzo de su vida: sufrimiento, rechazo, paz y, finalmente, sabiduría.",
+    },
     photo: {
       url: "books/Hesse_Hermann_Siddhartha.jpg",
       text: "Siddhartha book cover",
@@ -23,9 +27,11 @@ const LIBROS: Libro[] = [
   {
     common: "big sur",
     binomial: "jack kerouac",
-    genero: "fiction · beat generation",
-    resena:
-      "Kerouac's alter ego Jack Duluoz, worn down by fame and drink, retreats to a cabin on the California coast seeking peace — and finds instead a raw confrontation with himself, told in the wild, honest prose that defined the Beat Generation.",
+    genero: { en: "fiction · beat generation", es: "ficción · generación beat" },
+    resena: {
+      en: "Kerouac's alter ego Jack Duluoz, worn down by fame and drink, retreats to a cabin on the California coast seeking peace — and finds instead a raw confrontation with himself, told in the wild, honest prose that defined the Beat Generation.",
+      es: "Jack Duluoz, el álter ego de Kerouac, agotado por la fama y el alcohol, se refugia en una cabaña en la costa de California buscando paz — y encuentra en cambio una confrontación cruda consigo mismo, contada en la prosa salvaje y honesta que definió a la Generación Beat.",
+    },
     photo: {
       url: "books/Keroauc_Jack_Big_Sur.jpg",
       text: "Big Sur book cover",
@@ -34,9 +40,11 @@ const LIBROS: Libro[] = [
   {
     common: "the lessons of history",
     binomial: "will & ariel durant",
-    genero: "history",
-    resena:
-      "The celebrated collection of essays distilling four decades of work on The Story of Civilization into timeless observations on human nature, war, religion, economics and government — five thousand years of history in a hundred pages.",
+    genero: { en: "history", es: "historia" },
+    resena: {
+      en: "The celebrated collection of essays distilling four decades of work on The Story of Civilization into timeless observations on human nature, war, religion, economics and government — five thousand years of history in a hundred pages.",
+      es: "La célebre colección de ensayos que destila cuatro décadas de trabajo en The Story of Civilization en observaciones atemporales sobre la naturaleza humana, la guerra, la religión, la economía y el gobierno — cinco mil años de historia en cien páginas.",
+    },
     photo: {
       url: "books/Durant_Will_Ariel_The_Lessons_of_history.jpg",
       text: "The Lessons of History book cover",
@@ -45,9 +53,11 @@ const LIBROS: Libro[] = [
   {
     common: "poor charlie's almanack",
     binomial: "charlie munger & peter d. kaufman",
-    genero: "business · philosophy",
-    resena:
-      "The essential talks, speeches and wit of Charlie Munger, Warren Buffett's longtime partner — a masterclass in multidisciplinary thinking, mental models, inverting problems and the pursuit of worldly wisdom.",
+    genero: { en: "business · philosophy", es: "negocios · filosofía" },
+    resena: {
+      en: "The essential talks, speeches and wit of Charlie Munger, Warren Buffett's longtime partner — a masterclass in multidisciplinary thinking, mental models, inverting problems and the pursuit of worldly wisdom.",
+      es: "Las charlas, discursos e ingenio esenciales de Charlie Munger, socio de toda la vida de Warren Buffett — una clase magistral de pensamiento multidisciplinario, modelos mentales, inversión de problemas y búsqueda de la sabiduría mundana.",
+    },
     photo: {
       url: "books/Kaufman_Peter_D_Charlie_Munger_Poor_Charlies_Almanack.jpg",
       text: "Poor Charlie's Almanack book cover",
@@ -56,9 +66,11 @@ const LIBROS: Libro[] = [
   {
     common: "the almanack of naval ravikant",
     binomial: "eric jorgenson",
-    genero: "philosophy · wealth",
-    resena:
-      "A curated collection of Naval Ravikant's wisdom from the last decade, in his own words: how to build wealth without luck, and how to cultivate happiness as a skill — a guide to walking your own path toward a wealthier, happier life.",
+    genero: { en: "philosophy · wealth", es: "filosofía · riqueza" },
+    resena: {
+      en: "A curated collection of Naval Ravikant's wisdom from the last decade, in his own words: how to build wealth without luck, and how to cultivate happiness as a skill — a guide to walking your own path toward a wealthier, happier life.",
+      es: "Una colección curada de la sabiduría de Naval Ravikant de la última década, en sus propias palabras: cómo construir riqueza sin depender de la suerte y cómo cultivar la felicidad como una habilidad — una guía para recorrer tu propio camino hacia una vida más rica y feliz.",
+    },
     photo: {
       url: "books/Jorgenson_Erik_The_Almanack_of_Naval_v2.jpg",
       text: "The Almanack of Naval Ravikant book cover",
@@ -67,9 +79,11 @@ const LIBROS: Libro[] = [
   {
     common: "the sovereign individual",
     binomial: "james dale davidson & william rees-mogg",
-    genero: "economics · future",
-    resena:
-      "Written in 1997, an eerily prescient map of the greatest economic and political transition in centuries — the shift from an industrial to an information-based society — and how it transforms money, politics and personal sovereignty.",
+    genero: { en: "economics · future", es: "economía · futuro" },
+    resena: {
+      en: "Written in 1997, an eerily prescient map of the greatest economic and political transition in centuries — the shift from an industrial to an information-based society — and how it transforms money, politics and personal sovereignty.",
+      es: "Escrito en 1997, un mapa inquietantemente profético de la mayor transición económica y política en siglos — el paso de una sociedad industrial a una basada en la información — y de cómo transforma el dinero, la política y la soberanía personal.",
+    },
     photo: {
       url: "books/Davidson_James_Dale_Rees-Mogg_Lord_Williams_The_Sovereign_individual.jpg",
       text: "The Sovereign Individual book cover",
@@ -78,9 +92,11 @@ const LIBROS: Libro[] = [
   {
     common: "build",
     binomial: "tony fadell",
-    genero: "business · memoir",
-    resena:
-      "The creator of the iPod and iPhone and founder of Nest shares an unorthodox guide to making things worth making — decades of hard-won lessons about products, teams, leadership and building a life of purpose.",
+    genero: { en: "business · memoir", es: "negocios · memorias" },
+    resena: {
+      en: "The creator of the iPod and iPhone and founder of Nest shares an unorthodox guide to making things worth making — decades of hard-won lessons about products, teams, leadership and building a life of purpose.",
+      es: "El creador del iPod y el iPhone y fundador de Nest comparte una guía poco ortodoxa para hacer cosas que valga la pena hacer — décadas de lecciones duramente aprendidas sobre productos, equipos, liderazgo y una vida con propósito.",
+    },
     photo: {
       url: "books/Fadell_Tony_Build.jpg",
       text: "Build book cover",
@@ -89,9 +105,11 @@ const LIBROS: Libro[] = [
   {
     common: "shoe dog",
     binomial: "phil knight",
-    genero: "business · memoir",
-    resena:
-      "The candid memoir of Nike's founder: starting with fifty dollars borrowed from his father and a crazy idea — importing running shoes from Japan — Knight tells the messy, perilous and chaotic story behind one of the world's most iconic brands.",
+    genero: { en: "business · memoir", es: "negocios · memorias" },
+    resena: {
+      en: "The candid memoir of Nike's founder: starting with fifty dollars borrowed from his father and a crazy idea — importing running shoes from Japan — Knight tells the messy, perilous and chaotic story behind one of the world's most iconic brands.",
+      es: "Las memorias sinceras del fundador de Nike: partiendo con cincuenta dólares prestados por su padre y una idea loca — importar zapatillas de running desde Japón — Knight cuenta la historia desordenada, arriesgada y caótica detrás de una de las marcas más icónicas del mundo.",
+    },
     photo: {
       url: "books/Knight_Phil_Shoe_Dog.png",
       text: "Shoe Dog book cover",
@@ -100,9 +118,11 @@ const LIBROS: Libro[] = [
   {
     common: "discipline is destiny",
     binomial: "ryan holiday",
-    genero: "philosophy · stoicism",
-    resena:
-      "Drawing on figures from Marcus Aurelius to Lou Gehrig, Holiday explores self-discipline — temperance, the second of the four Stoic virtues — and shows how the greatest freedom is won through command over oneself.",
+    genero: { en: "philosophy · stoicism", es: "filosofía · estoicismo" },
+    resena: {
+      en: "Drawing on figures from Marcus Aurelius to Lou Gehrig, Holiday explores self-discipline — temperance, the second of the four Stoic virtues — and shows how the greatest freedom is won through command over oneself.",
+      es: "Recurriendo a figuras que van de Marco Aurelio a Lou Gehrig, Holiday explora la autodisciplina — la templanza, la segunda de las cuatro virtudes estoicas — y muestra cómo la mayor libertad se conquista con el dominio de uno mismo.",
+    },
     photo: {
       url: "books/Holiday_Ryan_Discipline_is_destiny.jpg",
       text: "Discipline Is Destiny book cover",
@@ -111,9 +131,11 @@ const LIBROS: Libro[] = [
   {
     common: "breath",
     binomial: "james nestor",
-    genero: "science · health",
-    resena:
-      "There is nothing more essential to health than breathing — yet humans have lost the ability to do it correctly. Nestor travels the world to figure out what went wrong, testing ancient practices against modern science, with transformative results.",
+    genero: { en: "science · health", es: "ciencia · salud" },
+    resena: {
+      en: "There is nothing more essential to health than breathing — yet humans have lost the ability to do it correctly. Nestor travels the world to figure out what went wrong, testing ancient practices against modern science, with transformative results.",
+      es: "No hay nada más esencial para la salud que respirar — y sin embargo los humanos hemos perdido la capacidad de hacerlo correctamente. Nestor recorre el mundo para descubrir qué salió mal, poniendo a prueba prácticas ancestrales frente a la ciencia moderna, con resultados transformadores.",
+    },
     photo: {
       url: "books/Breathe_James_Deep.jpg",
       text: "Breath book cover",
@@ -122,9 +144,11 @@ const LIBROS: Libro[] = [
   {
     common: "deep",
     binomial: "james nestor",
-    genero: "science · adventure",
-    resena:
-      "A plunge into freediving and renegade ocean science: record-setting divers and researchers reveal the hidden abilities of the human body — and what the deepest places on Earth tell us about ourselves.",
+    genero: { en: "science · adventure", es: "ciencia · aventura" },
+    resena: {
+      en: "A plunge into freediving and renegade ocean science: record-setting divers and researchers reveal the hidden abilities of the human body — and what the deepest places on Earth tell us about ourselves.",
+      es: "Una inmersión en la apnea y la ciencia oceánica renegada: buzos que baten récords e investigadores revelan las capacidades ocultas del cuerpo humano — y lo que los lugares más profundos de la Tierra nos dicen sobre nosotros mismos.",
+    },
     photo: {
       url: "books/Nestor_James_Deep.jpg",
       text: "Deep book cover",
@@ -140,6 +164,7 @@ export default function Books({ lang }: { lang: "en" | "es" }) {
       lang === "en"
         ? "some of the books that had a significant impact in my thinking and life."
         : "algunos de los libros que tuvieron un impacto significativo en mi forma de pensar y en mi vida.",
+    by: lang === "en" ? "by" : "por",
     close: lang === "en" ? "Close ✕" : "Cerrar ✕",
   };
 
@@ -231,10 +256,10 @@ export default function Books({ lang }: { lang: "en" | "es" }) {
                   {selected.common}
                 </h3>
                 <p className="mt-1 text-sm text-gray-500">
-                  by {selected.binomial} · {selected.genero}
+                  {copy.by} {selected.binomial} · {selected.genero[lang]}
                 </p>
                 <p className="mt-4 text-sm leading-relaxed text-gray-700">
-                  {selected.resena}
+                  {selected.resena[lang]}
                 </p>
                 <button
                   onClick={() => setSelected(null)}

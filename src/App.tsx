@@ -10,38 +10,26 @@ type Language = "en" | "es";
 type Vista = "inicio" | "obras" | "built" | "books" | "sobre-mi";
 
 export default function App() {
-  const normalizePath = (path: string) => {
-    const cleaned = path.replace(/\/+$|^\/\//g, "");
-    return cleaned === "" ? "/main" : `/${cleaned}`;
-  };
-
-  const [pathname, setPathname] = useState(normalizePath(window.location.pathname));
+  const [hash, setHash] = useState(window.location.hash);
   const [lang, setLang] = useState<Language>("en");
 
   useEffect(() => {
-    const onPopState = () => setPathname(normalizePath(window.location.pathname));
-    window.addEventListener("popstate", onPopState);
-    return () => window.removeEventListener("popstate", onPopState);
+    const onHashChange = () => setHash(window.location.hash);
+    window.addEventListener("hashchange", onHashChange);
+    return () => window.removeEventListener("hashchange", onHashChange);
   }, []);
 
-  const navigate = (path: string) => {
-    const next = normalizePath(path);
-    if (next !== pathname) {
-      window.history.pushState(null, "", next);
-      setPathname(next);
-    }
-  };
-
-  // La página principal es /main; /works muestra la galería, /about la biografía,
-  // /built los proyectos y /books la galería de libros.
+  // La página principal (sin hash o #inicio) es el hero animado;
+  // #obras muestra la galería carrusel, #built los proyectos,
+  // #books la galería de libros y #sobre-mi la biografía
   const vista: Vista =
-    pathname === "/about"
+    hash === "#sobre-mi"
       ? "sobre-mi"
-      : pathname === "/works"
+      : hash === "#obras"
         ? "obras"
-        : pathname === "/built"
+        : hash === "#built"
           ? "built"
-          : pathname === "/books"
+          : hash === "#books"
             ? "books"
             : "inicio";
 
@@ -67,42 +55,25 @@ export default function App() {
           vista === "books" ? "fixed" : "absolute"
         } inset-x-0 top-0 z-20 flex flex-col items-center gap-2 px-6 py-5 md:flex-row md:items-baseline md:justify-between md:px-10 md:py-6`}
       >
-        <button
-          type="button"
-          onClick={() => navigate("/main")}
+        <a
+          href="#inicio"
           className="font-serif text-lg lowercase tracking-wide text-gray-900 no-underline"
         >
           josé subiabre
-        </button>
+        </a>
         <nav className="flex flex-wrap items-center gap-4 text-[0.72rem] font-medium uppercase tracking-[0.14em] text-gray-500 sm:gap-7">
-          <button
-            type="button"
-            onClick={() => navigate("/works")}
-            className="transition-colors hover:text-blue-700"
-          >
+          <a href="#obras" className="transition-colors hover:text-blue-700">
             {labels.works}
-          </button>
-          <button
-            type="button"
-            onClick={() => navigate("/built")}
-            className="transition-colors hover:text-blue-700"
-          >
+          </a>
+          <a href="#built" className="transition-colors hover:text-blue-700">
             {labels.built}
-          </button>
-          <button
-            type="button"
-            onClick={() => navigate("/books")}
-            className="transition-colors hover:text-blue-700"
-          >
+          </a>
+          <a href="#books" className="transition-colors hover:text-blue-700">
             {labels.books}
-          </button>
-          <button
-            type="button"
-            onClick={() => navigate("/about")}
-            className="transition-colors hover:text-blue-700"
-          >
+          </a>
+          <a href="#sobre-mi" className="transition-colors hover:text-blue-700">
             {labels.about}
-          </button>
+          </a>
           <button
             type="button"
             onClick={() => setLang(lang === "en" ? "es" : "en")}
