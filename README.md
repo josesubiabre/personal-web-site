@@ -32,16 +32,23 @@ Consejo: exporta las imágenes a ~1600 px de ancho para que carguen rápido.
 
 ## Publicar en internet (GitHub Pages)
 
-El despliegue es automático: cada `git push` a `main` ejecuta el workflow de
-GitHub Actions (`.github/workflows/deploy.yml`), que compila la app con Vite y
-publica `dist/` en `https://josesubiabre.github.io/portfolio-arte/`.
+El despliegue es automático: cada vez que un cambio llega a `main`, se
+ejecuta el workflow de GitHub Actions (`.github/workflows/deploy.yml`), que
+compila la app con Vite y publica `dist/` en
+`https://josesubiabre.github.io/portfolio-arte/`.
+
+**`main` está protegida**: no se puede hacer `git push` directo. Todo cambio
+se sube por rama y Pull Request.
 
 Para publicar cambios:
 
 ```bash
+git checkout -b nombre-del-cambio
+# ... editás y probás con npm run dev ...
 git add .
 git commit -m "descripción del cambio"
-git push
+git push -u origin nombre-del-cambio
 ```
 
-A los 1–2 minutos el sitio queda actualizado.
+Después abrí un Pull Request en GitHub hacia `main` y usá **"Squash and
+merge"**. A los 1–2 minutos de mergear, el sitio queda actualizado.
