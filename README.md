@@ -4,6 +4,8 @@ App React (Vite + TypeScript + Tailwind 4, estructura shadcn) con un landing
 animado por scroll: las obras forman un arco, y al hacer clic en una se
 expande a pantalla completa.
 
+![Captura del sitio](.github/images/screenshot.png)
+
 ## Cómo trabajar
 
 ```bash
