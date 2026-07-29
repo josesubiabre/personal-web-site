@@ -297,7 +297,7 @@ export default function Built({ lang }: { lang: Language }) {
                   onClick={() => setGaleria(null)}
                   className="text-xs uppercase tracking-[0.14em] text-white/70 transition-colors hover:text-white"
                 >
-                  Close ✕
+                  {lang === "en" ? "Close ✕" : "Cerrar ✕"}
                 </button>
               </figcaption>
             </motion.figure>
@@ -307,7 +307,7 @@ export default function Built({ lang }: { lang: Language }) {
               <>
                 <button
                   type="button"
-                  aria-label="Previous image"
+                  aria-label={lang === "en" ? "Previous image" : "Imagen anterior"}
                   onClick={(e) => {
                     e.stopPropagation();
                     navigate(-1);
@@ -318,7 +318,7 @@ export default function Built({ lang }: { lang: Language }) {
                 </button>
                 <button
                   type="button"
-                  aria-label="Next image"
+                  aria-label={lang === "en" ? "Next image" : "Imagen siguiente"}
                   onClick={(e) => {
                     e.stopPropagation();
                     navigate(1);
