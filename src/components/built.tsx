@@ -138,7 +138,7 @@ export default function Built({ lang }: { lang: Language }) {
 
   return (
     <section className="relative w-full overflow-hidden">
-      <main className="mx-auto flex min-h-dvh w-full max-w-6xl flex-col justify-center px-4 pb-[10vh] pt-28 sm:px-6 lg:px-8 max-lg:justify-start">
+      <main className="mx-auto flex min-h-dvh w-full max-w-6xl flex-col justify-center px-4 pb-[10vh] pt-36 sm:px-6 md:pt-28 lg:px-8 max-lg:justify-start">
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-16">
           {/* Columna izquierda — título */}
           <motion.div

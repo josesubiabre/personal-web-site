@@ -128,7 +128,7 @@ export default function Obras({ lang }: { lang: "en" | "es" }) {
       : items;
 
   return (
-    <main className="pt-14">
+    <main className="pt-36 md:pt-14">
       <Gallery4
         title={copy.title}
         description={copy.description}

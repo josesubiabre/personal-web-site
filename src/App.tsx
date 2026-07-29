@@ -61,7 +61,7 @@ export default function App() {
         >
           josé subiabre
         </a>
-        <nav className="flex flex-wrap items-center gap-4 text-[0.72rem] font-medium uppercase tracking-[0.14em] text-gray-500 sm:gap-7">
+        <nav className="flex flex-wrap items-center justify-center gap-4 text-[0.72rem] font-medium uppercase tracking-[0.14em] text-gray-500 sm:gap-7 md:justify-end">
           <a href="#obras" className="transition-colors hover:text-blue-700">
             {labels.works}
           </a>

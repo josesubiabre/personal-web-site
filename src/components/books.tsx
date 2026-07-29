@@ -203,7 +203,7 @@ export default function Books({ lang }: { lang: "en" | "es" }) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="absolute top-24 z-10 flex flex-col items-center px-6 text-center md:top-28"
+          className="absolute top-36 z-10 flex flex-col items-center px-6 text-center md:top-28"
         >
           <div className="flex items-center gap-3">
             <h2 className="font-serif text-xl lowercase tracking-tight text-black sm:text-2xl">
