@@ -193,8 +193,8 @@ export default function Built({ lang }: { lang: Language }) {
                         return isPrimary(a.label) === isPrimary(b.label)
                           ? 0
                           : isPrimary(a.label)
-                            ? -1
-                            : 1;
+                            ? 1
+                            : -1;
                       })
                       .map((link) => {
                       // Los links con gallery abren el visor de imágenes
