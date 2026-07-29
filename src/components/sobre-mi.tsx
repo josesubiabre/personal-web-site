@@ -40,6 +40,12 @@ const ELSEWHERE = [
     label: "watch video",
     href: "https://www.facebook.com/watch/?v=314418786034435&t=750",
   },
+  {
+    source: "LinkedIn",
+    description: "my professional profile and work history.",
+    label: "view profile",
+    href: "https://www.linkedin.com/in/josesubiabre/?locale=en",
+  },
 ];
 
 // posicion controla qué parte de la foto se ve dentro del marco:

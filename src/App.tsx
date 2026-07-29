@@ -62,12 +62,6 @@ export default function App() {
           <a href="#sobre-mi" className="transition-colors hover:text-blue-700">
             About
           </a>
-          <a
-            href="mailto:subiabreji@gmail.com"
-            className="transition-colors hover:text-blue-700"
-          >
-            Contact
-          </a>
         </nav>
       </header>
 
