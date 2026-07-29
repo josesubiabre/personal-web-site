@@ -30,7 +30,7 @@ const PROYECTOS: Proyecto[] = [
     ],
     links: [
       { label: "view project", href: "https://www.mivitae.cl/" },
-      { label: "view", gallery: true },
+      { label: "view design", gallery: true },
     ],
   },
   {
