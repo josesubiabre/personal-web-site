@@ -137,7 +137,15 @@ export default function Built() {
                     )}
                   </span>
                   <span className="flex shrink-0 items-center gap-5">
-                    {proyecto.links.map((link) => {
+                    {[...proyecto.links]
+                      .sort((a, b) =>
+                        a.label === "view project"
+                          ? 1
+                          : b.label === "view project"
+                            ? -1
+                            : 0,
+                      )
+                      .map((link) => {
                       // Los links con gallery abren el visor de imágenes
                       if (link.gallery && proyecto.images.length > 0) {
                         return (
@@ -178,7 +186,7 @@ export default function Built() {
                           <ArrowUpRight className="h-4 w-4" strokeWidth={1.5} />
                         </span>
                       );
-                    })}
+                      })}
                   </span>
                 </li>
               ))}
