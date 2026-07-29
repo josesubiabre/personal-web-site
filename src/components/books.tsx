@@ -132,8 +132,16 @@ const LIBROS: Libro[] = [
   },
 ];
 
-export default function Books() {
+export default function Books({ lang }: { lang: "en" | "es" }) {
   const [selected, setSelected] = useState<Libro | null>(null);
+  const copy = {
+    title: lang === "en" ? "books" : "libros",
+    description:
+      lang === "en"
+        ? "some of the books that had a significant impact in my thinking and life."
+        : "algunos de los libros que tuvieron un impacto significativo en mi forma de pensar y en mi vida.",
+    close: lang === "en" ? "Close ✕" : "Cerrar ✕",
+  };
 
   // Al entrar desde otra vista, partir con el primer libro al frente
   useEffect(() => {
@@ -174,13 +182,12 @@ export default function Books() {
         >
           <div className="flex items-center gap-3">
             <h2 className="font-serif text-xl lowercase tracking-tight text-black sm:text-2xl">
-              books
+              {copy.title}
             </h2>
             <ArrowDown className="h-5 w-5 text-black" strokeWidth={1.5} />
           </div>
           <p className="mt-2 max-w-md text-sm leading-relaxed text-gray-700">
-            some of the books that had a significant impact in my thinking and
-            life.
+            {copy.description}
           </p>
         </motion.div>
 
@@ -233,7 +240,7 @@ export default function Books() {
                   onClick={() => setSelected(null)}
                   className="mt-6 self-start text-xs uppercase tracking-[0.14em] text-gray-400 transition-colors hover:text-black"
                 >
-                  Close ✕
+                  {copy.close}
                 </button>
               </div>
             </motion.article>

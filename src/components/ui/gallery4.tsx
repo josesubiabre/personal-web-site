@@ -143,7 +143,7 @@ const Gallery4 = ({
                         {item.description}
                       </div>
                       <div className="flex items-center text-sm">
-                        View work{" "}
+                        {title === "works" ? "View work" : "Ver obra"}{" "}
                         <ArrowRight className="ml-2 size-5 transition-transform group-hover:translate-x-1" />
                       </div>
                     </div>

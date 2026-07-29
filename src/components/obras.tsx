@@ -73,9 +73,19 @@ function toEmbed(url: string): { src: string; height: number } | null {
   return null;
 }
 
-export default function Obras() {
+export default function Obras({ lang }: { lang: "en" | "es" }) {
   const [selected, setSelected] = useState<Gallery4Item | null>(null);
   const musicEmbed = selected?.music ? toEmbed(selected.music) : null;
+  const copy = {
+    title: lang === "en" ? "works" : "obras",
+    description:
+      lang === "en"
+        ? "images, sound, places, and visual experiments."
+        : "imágenes, sonido, lugares y experimentos visuales.",
+    close: lang === "en" ? "Close ✕" : "Cerrar ✕",
+    prev: lang === "en" ? "Previous work" : "Obra anterior",
+    next: lang === "en" ? "Next work" : "Siguiente obra",
+  };
 
   // Navega a la obra anterior (-1) o siguiente (+1), en forma circular
   const navigate = (dir: number) => {
@@ -103,8 +113,8 @@ export default function Obras() {
   return (
     <main className="pt-14">
       <Gallery4
-        title="works"
-        description="images, sound, places, and visual experiments."
+        title={copy.title}
+        description={copy.description}
         items={items}
         onItemClick={setSelected}
       />
@@ -180,7 +190,7 @@ export default function Obras() {
                   onClick={() => setSelected(null)}
                   className="text-xs uppercase tracking-[0.14em] text-white/70 transition-colors hover:text-white"
                 >
-                  Close ✕
+                  {copy.close}
                 </button>
               </figcaption>
 
@@ -200,7 +210,7 @@ export default function Obras() {
             {/* Zonas táctiles en los bordes: anterior / siguiente */}
             <button
               type="button"
-              aria-label="Previous work"
+              aria-label={copy.prev}
               onClick={(e) => {
                 e.stopPropagation();
                 navigate(-1);
@@ -211,7 +221,7 @@ export default function Obras() {
             </button>
             <button
               type="button"
-              aria-label="Next work"
+              aria-label={copy.next}
               onClick={(e) => {
                 e.stopPropagation();
                 navigate(1);

@@ -5,8 +5,11 @@ import Obras from "@/components/obras";
 import Built from "@/components/built";
 import Books from "@/components/books";
 
+type Language = "en" | "es";
+
 export default function App() {
   const [hash, setHash] = useState(window.location.hash);
+  const [lang, setLang] = useState<Language>("en");
 
   useEffect(() => {
     const onHashChange = () => setHash(window.location.hash);
@@ -27,6 +30,13 @@ export default function App() {
           : hash === "#books"
             ? "books"
             : "inicio";
+
+  const labels = {
+    works: lang === "en" ? "Works" : "Trabajos",
+    built: lang === "en" ? "Built" : "Proyectos",
+    books: lang === "en" ? "Books" : "Libros",
+    about: lang === "en" ? "About" : "Sobre mí",
+  };
 
   return (
     <div
@@ -49,32 +59,42 @@ export default function App() {
         >
           josé subiabre
         </a>
-        <nav className="flex gap-7 text-[0.72rem] font-medium uppercase tracking-[0.14em] text-gray-500">
+        <nav className="flex flex-wrap items-center gap-4 text-[0.72rem] font-medium uppercase tracking-[0.14em] text-gray-500 sm:gap-7">
           <a href="#obras" className="transition-colors hover:text-blue-700">
-            Works
+            {labels.works}
           </a>
           <a href="#built" className="transition-colors hover:text-blue-700">
-            Built
+            {labels.built}
           </a>
           <a href="#books" className="transition-colors hover:text-blue-700">
-            Books
+            {labels.books}
           </a>
           <a href="#sobre-mi" className="transition-colors hover:text-blue-700">
-            About
+            {labels.about}
           </a>
+          <button
+            type="button"
+            onClick={() => setLang(lang === "en" ? "es" : "en")}
+            className="flex items-center rounded-full border border-gray-200 px-3 py-1 text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-gray-600 transition-colors hover:text-blue-700"
+            aria-label={lang === "en" ? "Cambiar a español" : "Switch to English"}
+          >
+            <span className={lang === "en" ? "text-gray-900" : "text-gray-400"}>EN</span>
+            <span className="mx-1 text-gray-400">|</span>
+            <span className={lang === "es" ? "text-gray-900" : "text-gray-400"}>ES</span>
+          </button>
         </nav>
       </header>
 
       {vista === "sobre-mi" ? (
-        <SobreMi />
+        <SobreMi lang={lang} />
       ) : vista === "built" ? (
-        <Built />
+        <Built lang={lang} />
       ) : vista === "books" ? (
-        <Books />
+        <Books lang={lang} />
       ) : vista === "inicio" ? (
-        <IntroAnimation />
+        <IntroAnimation lang={lang} />
       ) : (
-        <Obras />
+        <Obras lang={lang} />
       )}
     </div>
   );

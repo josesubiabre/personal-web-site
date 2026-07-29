@@ -17,50 +17,99 @@ type Proyecto = {
   links: ProjectLink[];
 };
 
-const PROYECTOS: Proyecto[] = [
-  {
-    name: "MiVitae",
-    description:
-      "a personal health wallet for organizing medical history in Chile.",
-    stack: "JavaScript · Supabase · Playwright · Node.js · Vercel",
-    images: [
-      "built/MiVitae/MiVitae_Desktop_Examenes_Mock.png",
-      "built/MiVitae/MiVitae_Phone_Mock.png",
-      "built/MiVitae/MiVitae_Desktop_Examenes.png",
-    ],
-    links: [
-      { label: "view project", href: "https://www.mivitae.cl/" },
-      { label: "view design", gallery: true },
-    ],
-  },
-  {
-    name: "MorningTechDigest",
-    description: "a small automation that reads tech news before i do.",
-    stack: "Python · GitHub Actions · AI summaries · WhatsApp",
-    images: [
-      "built/TechNewsDigest/Product_Tech_News_Digest.png",
-      "built/TechNewsDigest/Tech_News_Digest_Phone.png",
-    ],
-    links: [
-      { label: "view project", gallery: true },
-      { label: "view code", href: "https://github.com/josesubiabre/morning-tech-digest" },
-    ],
-  },
-  {
-    name: "ParaNonna",
-    description:
-      "an early-stage product and brand exploring everyday objects for older adults.",
-    stack: "",
-    images: [],
-    links: [{ label: "view project", href: "https://paranonna.cl/" }],
-  },
-];
+type Language = "en" | "es";
+
+const PROYECTOS: Record<Language, Proyecto[]> = {
+  en: [
+    {
+      name: "MiVitae",
+      description:
+        "a personal health wallet for organizing medical history in Chile.",
+      stack: "JavaScript · Supabase · Playwright · Node.js · Vercel",
+      images: [
+        "built/MiVitae/MiVitae_Desktop_Examenes_Mock.png",
+        "built/MiVitae/MiVitae_Phone_Mock.png",
+        "built/MiVitae/MiVitae_Desktop_Examenes.png",
+      ],
+      links: [
+        { label: "view project", href: "https://www.mivitae.cl/" },
+        { label: "view design", gallery: true },
+      ],
+    },
+    {
+      name: "MorningTechDigest",
+      description: "a small automation that reads tech news before i do.",
+      stack: "Python · GitHub Actions · AI summaries · WhatsApp",
+      images: [
+        "built/TechNewsDigest/Product_Tech_News_Digest.png",
+        "built/TechNewsDigest/Tech_News_Digest_Phone.png",
+      ],
+      links: [
+        { label: "view project", gallery: true },
+        { label: "view code", href: "https://github.com/josesubiabre/morning-tech-digest" },
+      ],
+    },
+    {
+      name: "ParaNonna",
+      description:
+        "an early-stage product and brand exploring everyday objects for older adults.",
+      stack: "",
+      images: [],
+      links: [{ label: "view project", href: "https://paranonna.cl/" }],
+    },
+  ],
+  es: [
+    {
+      name: "MiVitae",
+      description:
+        "una billetera personal de salud para organizar la historia médica en Chile.",
+      stack: "JavaScript · Supabase · Playwright · Node.js · Vercel",
+      images: [
+        "built/MiVitae/MiVitae_Desktop_Examenes_Mock.png",
+        "built/MiVitae/MiVitae_Phone_Mock.png",
+        "built/MiVitae/MiVitae_Desktop_Examenes.png",
+      ],
+      links: [
+        { label: "ver proyecto", href: "https://www.mivitae.cl/" },
+        { label: "ver diseño", gallery: true },
+      ],
+    },
+    {
+      name: "MorningTechDigest",
+      description: "una pequeña automatización que lee noticias tecnológicas antes que yo.",
+      stack: "Python · GitHub Actions · resúmenes con IA · WhatsApp",
+      images: [
+        "built/TechNewsDigest/Product_Tech_News_Digest.png",
+        "built/TechNewsDigest/Tech_News_Digest_Phone.png",
+      ],
+      links: [
+        { label: "ver proyecto", gallery: true },
+        { label: "ver código", href: "https://github.com/josesubiabre/morning-tech-digest" },
+      ],
+    },
+    {
+      name: "ParaNonna",
+      description:
+        "un producto y una marca en etapa temprana que exploran objetos cotidianos para personas mayores.",
+      stack: "",
+      images: [],
+      links: [{ label: "ver proyecto", href: "https://paranonna.cl/" }],
+    },
+  ],
+};
 
 type Galeria = { title: string; images: string[]; index: number };
 
-export default function Built() {
+export default function Built({ lang }: { lang: Language }) {
   const [galeria, setGaleria] = useState<Galeria | null>(null);
   const galeriaRef = useRef<Galeria | null>(null);
+  const proyectos = PROYECTOS[lang];
+  const copy = {
+    title: lang === "en" ? "built" : "proyectos",
+    intro: lang === "en"
+      ? "small products, tools, and ventures i’ve built or explored."
+      : "pequeños productos, herramientas y emprendimientos que he creado o explorado.",
+  };
   galeriaRef.current = galeria;
 
   // Navega dentro de la galería abierta (circular)
@@ -100,7 +149,7 @@ export default function Built() {
           >
             <div className="flex items-center gap-3">
               <h2 className="font-serif text-xl lowercase tracking-tight text-black sm:text-2xl">
-                built
+                {copy.title}
               </h2>
               <ArrowDown className="h-5 w-5 text-black" strokeWidth={1.5} />
             </div>
@@ -114,11 +163,11 @@ export default function Built() {
             className="lg:col-span-10"
           >
             <p className="text-sm leading-relaxed text-gray-700">
-              small products, tools, and ventures i’ve built or explored.
+              {copy.intro}
             </p>
 
             <ul className="mt-8 divide-y divide-gray-200 border-b border-gray-200">
-              {PROYECTOS.map((proyecto) => (
+              {proyectos.map((proyecto) => (
                 <li
                   key={proyecto.name}
                   className="flex flex-col gap-1 py-4 sm:flex-row sm:items-baseline sm:gap-6"
@@ -138,13 +187,15 @@ export default function Built() {
                   </span>
                   <span className="flex shrink-0 items-center gap-5">
                     {[...proyecto.links]
-                      .sort((a, b) =>
-                        a.label === "view project"
-                          ? 1
-                          : b.label === "view project"
+                      .sort((a, b) => {
+                        const isPrimary = (label: string) =>
+                          label.toLowerCase().includes("project") || label.toLowerCase().includes("proyecto");
+                        return isPrimary(a.label) === isPrimary(b.label)
+                          ? 0
+                          : isPrimary(a.label)
                             ? -1
-                            : 0,
-                      )
+                            : 1;
+                      })
                       .map((link) => {
                       // Los links con gallery abren el visor de imágenes
                       if (link.gallery && proyecto.images.length > 0) {

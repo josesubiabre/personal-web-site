@@ -2,51 +2,100 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowDown, ArrowUpRight } from "lucide-react";
 
-const PARRAFOS = [
-  <>
-    i was born in santiago, chile. if there is one word that defines me, it is{" "}
-    <strong>builder</strong>.
-  </>,
-  <>
-    over the years, i’ve worn different hats and explored different ways of making:
-    architecture (and its many branches), music, art, and more recently,
-    technology. after studying architecture in chile, i later completed an mba
-    at ie business school, where my work moved closer to products, technology,
-    and entrepreneurship.
-  </>,
-  "i love building things, trying new tools, and finding new ways to express ideas. sometimes that becomes a piece of art, sometimes a song, sometimes a product. analog or digital, the impulse is usually the same: to make something new.",
-];
+type Language = "en" | "es";
+
+const PARRAFOS = {
+  en: [
+    <>
+      i was born in santiago, chile. if there is one word that defines me, it is{" "}
+      <strong>builder</strong>.
+    </>,
+    <>
+      over the years, i’ve worn different hats and explored different ways of making:
+      architecture (and its many branches), music, art, and more recently,
+      technology. after studying architecture in chile, i later completed an mba
+      at ie business school, where my work moved closer to products, technology,
+      and entrepreneurship.
+    </>,
+    "i love building things, trying new tools, and finding new ways to express ideas. sometimes that becomes a piece of art, sometimes a song, sometimes a product. analog or digital, the impulse is usually the same: to make something new.",
+  ],
+  es: [
+    <>
+      nací en santiago, chile. si hay una palabra que me define, es{" "}
+      <strong>constructor</strong>.
+    </>,
+    <>
+      a lo largo de los años he usado distintos sombreros y he explorado distintas
+      formas de crear: arquitectura (y sus muchas ramas), música, arte y, más
+      recientemente, tecnología. después de estudiar arquitectura en chile, luego
+      completé un mba en ie business school, donde mi trabajo se acercó más a los
+      productos, la tecnología y el emprendimiento.
+    </>,
+    "me encanta construir cosas, probar nuevas herramientas y encontrar nuevas formas de expresar ideas. a veces eso se convierte en una obra de arte, a veces en una canción y a veces en un producto. ya sea analógico o digital, el impulso suele ser el mismo: crear algo nuevo.",
+  ],
+};
 
 // Archivo de menciones, citas y entrevistas
-const ELSEWHERE = [
-  {
-    source: "BBVA",
-    description:
-      "cited in a BBVA article on agrovoltaics, solar energy, and cultivating under solar panels.",
-    label: "read article",
-    href: "https://www.bbva.com/es/sostenibilidad/cosechar-bajo-paneles-solares-los-cultivos-agrovoltaicos-empiezan-a-ver-la-luz/",
-  },
-  {
-    source: "Atacama Agrovoltaic Thesis",
-    description:
-      "my final architecture thesis exploring how solar infrastructure could enable agriculture in the Atacama Desert.",
-    label: "view thesis",
-    href: "https://repositorio.uc.cl/handle/11534/26961",
-  },
-  {
-    source: "City Tour",
-    description:
-      "featured on City Tour before presenting my architecture thesis (segment starts at 12:30).",
-    label: "watch video",
-    href: "https://www.facebook.com/watch/?v=314418786034435&t=750",
-  },
-  {
-    source: "LinkedIn",
-    description: "my professional profile and work history.",
-    label: "view profile",
-    href: "https://www.linkedin.com/in/josesubiabre/?locale=en",
-  },
-];
+const ELSEWHERE = {
+  en: [
+    {
+      source: "BBVA",
+      description:
+        "cited in a BBVA article on agrovoltaics, solar energy, and cultivating under solar panels.",
+      label: "read article",
+      href: "https://www.bbva.com/es/sostenibilidad/cosechar-bajo-paneles-solares-los-cultivos-agrovoltaicos-empiezan-a-ver-la-luz/",
+    },
+    {
+      source: "Atacama Agrovoltaic Thesis",
+      description:
+        "my final architecture thesis exploring how solar infrastructure could enable agriculture in the Atacama Desert.",
+      label: "view thesis",
+      href: "https://repositorio.uc.cl/handle/11534/26961",
+    },
+    {
+      source: "City Tour",
+      description:
+        "featured on City Tour before presenting my architecture thesis (segment starts at 12:30).",
+      label: "watch video",
+      href: "https://www.facebook.com/watch/?v=314418786034435&t=750",
+    },
+    {
+      source: "LinkedIn",
+      description: "my professional profile and work history.",
+      label: "view profile",
+      href: "https://www.linkedin.com/in/josesubiabre/?locale=en",
+    },
+  ],
+  es: [
+    {
+      source: "BBVA",
+      description:
+        "citado en un artículo de BBVA sobre agrovoltaica, energía solar y cultivo bajo paneles solares.",
+      label: "leer artículo",
+      href: "https://www.bbva.com/es/sostenibilidad/cosechar-bajo-paneles-solares-los-cultivos-agrovoltaicos-empiezan-a-ver-la-luz/",
+    },
+    {
+      source: "Tesis Agrovoltaica de Atacama",
+      description:
+        "mi tesis final de arquitectura sobre cómo la infraestructura solar podría permitir la agricultura en el desierto de Atacama.",
+      label: "ver tesis",
+      href: "https://repositorio.uc.cl/handle/11534/26961",
+    },
+    {
+      source: "City Tour",
+      description:
+        "aparecí en City Tour antes de presentar mi tesis de arquitectura (el segmento empieza a las 12:30).",
+      label: "ver video",
+      href: "https://www.facebook.com/watch/?v=314418786034435&t=750",
+    },
+    {
+      source: "LinkedIn",
+      description: "mi perfil profesional y mi trayectoria laboral.",
+      label: "ver perfil",
+      href: "https://www.linkedin.com/in/josesubiabre/?locale=en",
+    },
+  ],
+};
 
 // posicion controla qué parte de la foto se ve dentro del marco:
 //   horizontal: "left" | "center" | "right" | porcentaje ("30%")
@@ -117,8 +166,18 @@ function PaginationDots({
   );
 }
 
-export default function SobreMi() {
+export default function SobreMi({ lang }: { lang: Language }) {
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
+  const copy = {
+    about: lang === "en" ? "about" : "sobre mí",
+    elsewhere: lang === "en" ? "elsewhere" : "en otros lugares",
+    quote: lang === "en" ? "“go big, because we all go home” – naval ravikant" : "“go big, because we all go home” – naval ravikant",
+    archive: lang === "en"
+      ? "a small archive of places where my work has been mentioned, cited, or documented."
+      : "un pequeño archivo de lugares donde se ha mencionado, citado o documentado mi trabajo.",
+    nextPhoto: lang === "en" ? "Next photo" : "Siguiente foto",
+    goToPhoto: (index: number) => (lang === "en" ? `Go to photo ${index + 1}` : `Ir a la foto ${index + 1}`),
+  };
 
   return (
     <section className="relative w-full overflow-hidden">
@@ -133,7 +192,7 @@ export default function SobreMi() {
           >
             <div className="flex items-center gap-3">
               <h2 className="font-serif text-xl lowercase tracking-tight text-black sm:text-2xl">
-                about
+                {copy.about}
               </h2>
               <ArrowDown className="h-5 w-5 text-black" strokeWidth={1.5} />
             </div>
@@ -148,10 +207,10 @@ export default function SobreMi() {
           >
             <div className="space-y-6">
               <p className="text-sm italic leading-relaxed text-black">
-                “go big, because we all go home” – naval ravikant
+                {copy.quote}
               </p>
 
-              {PARRAFOS.map((texto, index) => (
+              {PARRAFOS[lang].map((texto, index) => (
                 <motion.p
                   key={index}
                   initial={{ opacity: 0, y: 10 }}
@@ -179,7 +238,7 @@ export default function SobreMi() {
                   setCurrentPhotoIndex((currentPhotoIndex + 1) % FOTOS.length)
                 }
                 className="relative h-[340px] w-[240px] cursor-pointer"
-                aria-label="Next photo"
+                aria-label={copy.nextPhoto}
               >
                 {FOTOS.map((foto, index) => (
                   <div
@@ -215,7 +274,7 @@ export default function SobreMi() {
           >
             <div className="flex items-center gap-3">
               <h2 className="font-serif text-xl lowercase tracking-tight text-black sm:text-2xl">
-                elsewhere
+                {copy.elsewhere}
               </h2>
               <ArrowDown className="h-5 w-5 text-black" strokeWidth={1.5} />
             </div>
@@ -228,12 +287,11 @@ export default function SobreMi() {
             className="lg:col-span-10"
           >
             <p className="text-sm leading-relaxed text-gray-700">
-              a small archive of places where my work has been mentioned,
-              cited, or documented.
+              {copy.archive}
             </p>
 
             <ul className="mt-8 divide-y divide-gray-200 border-b border-gray-200">
-              {ELSEWHERE.map((item) => (
+              {ELSEWHERE[lang].map((item) => (
                 <li
                   key={item.source}
                   className="flex flex-col gap-1 py-4 sm:flex-row sm:items-baseline sm:gap-6"

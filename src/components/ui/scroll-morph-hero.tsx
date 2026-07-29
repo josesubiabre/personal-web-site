@@ -27,7 +27,8 @@ function FlipCard({
     phase,
     target,
     onSelect,
-}: FlipCardProps) {
+    lang,
+}: FlipCardProps & { lang: "en" | "es" }) {
     return (
         <motion.div
             onClick={onSelect}
@@ -80,8 +81,8 @@ function FlipCard({
                     style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
                 >
                     <div className="text-center">
-                        <p className="text-[8px] font-bold text-[#B8B8B8] uppercase tracking-widest mb-1">View</p>
-                        <p className="text-xs font-medium text-[#F7F5F2]">Work</p>
+                        <p className="text-[8px] font-bold text-[#B8B8B8] uppercase tracking-widest mb-1">{lang === "en" ? "View" : "Ver"}</p>
+                        <p className="text-xs font-medium text-[#F7F5F2]">{lang === "en" ? "Work" : "Obra"}</p>
                     </div>
                 </div>
             </motion.div>
@@ -97,7 +98,7 @@ const TOTAL_IMAGES = IMAGES.length;
 // Helper for linear interpolation
 const lerp = (start: number, end: number, t: number) => start * (1 - t) + end * t;
 
-export default function IntroAnimation() {
+export default function IntroAnimation({ lang }: { lang: "en" | "es" }) {
     const [introPhase, setIntroPhase] = useState<AnimationPhase>("scatter");
     const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
     const containerRef = useRef<HTMLDivElement>(null);
@@ -410,6 +411,7 @@ export default function IntroAnimation() {
                                 phase={introPhase} // Pass intro phase for initial animations
                                 target={target}
                                 onSelect={() => setSelected(i)}
+                                lang={lang}
                             />
                         );
                     })}
