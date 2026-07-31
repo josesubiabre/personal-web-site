@@ -182,7 +182,7 @@ export default function SobreMi({ lang }: { lang: Language }) {
   return (
     <section className="relative w-full overflow-hidden">
       <main className="mx-auto flex min-h-dvh w-full max-w-6xl flex-col justify-center px-4 pb-[10vh] pt-36 sm:px-6 md:pt-28 lg:px-8">
-        <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-16">
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-12 lg:gap-16">
           {/* Columna izquierda — título */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -229,7 +229,7 @@ export default function SobreMi({ lang }: { lang: Language }) {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="relative lg:col-span-5"
+            className="relative mt-6 lg:col-span-5 lg:mt-0"
           >
             <div className="flex flex-col items-center lg:items-end">
               <button
@@ -265,7 +265,7 @@ export default function SobreMi({ lang }: { lang: Language }) {
         </div>
 
         {/* Sección elsewhere — menciones y archivo */}
-        <div className="mt-28 grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-16">
+        <div className="mt-28 grid grid-cols-1 gap-4 lg:grid-cols-12 lg:gap-16">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
