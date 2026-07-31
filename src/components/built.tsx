@@ -185,7 +185,7 @@ export default function Built({ lang }: { lang: Language }) {
                       </span>
                     )}
                   </span>
-                  <span className="flex shrink-0 items-center gap-5">
+                  <span className="flex shrink-0 flex-row-reverse items-center justify-end gap-5 sm:flex-row sm:justify-start">
                     {[...proyecto.links]
                       .sort((a, b) => {
                         const isPrimary = (label: string) =>

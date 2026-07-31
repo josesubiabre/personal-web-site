@@ -199,22 +199,29 @@ export default function Books({ lang }: { lang: "en" | "es" }) {
     <div className="w-full" style={{ height: "500vh" }}>
       <div className="sticky top-0 flex h-dvh w-full flex-col items-center overflow-hidden">
         {/* Título y descripción */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="absolute top-36 z-10 flex flex-col items-center px-6 text-center md:top-28"
-        >
-          <div className="flex items-center gap-3">
-            <h2 className="font-serif text-xl lowercase tracking-tight text-black sm:text-2xl">
-              {copy.title}
-            </h2>
-            <ArrowDown className="h-5 w-5 text-black" strokeWidth={1.5} />
+        <div className="absolute inset-x-0 top-36 z-10 md:top-28">
+          <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
+              className="flex items-center gap-3"
+            >
+              <h2 className="font-serif text-xl lowercase tracking-tight text-black sm:text-2xl">
+                {copy.title}
+              </h2>
+              <ArrowDown className="h-5 w-5 text-black" strokeWidth={1.5} />
+            </motion.div>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="mt-4 max-w-md text-sm leading-relaxed text-gray-700"
+            >
+              {copy.description}
+            </motion.p>
           </div>
-          <p className="mt-2 max-w-md text-sm leading-relaxed text-gray-700">
-            {copy.description}
-          </p>
-        </motion.div>
+        </div>
 
         <div className="h-full w-full">
           {/* Bajamos y encogemos un poco el anillo para despejar el título */}

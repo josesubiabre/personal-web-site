@@ -314,7 +314,7 @@ export default function IntroAnimation({ lang }: { lang: "en" | "es" }) {
                 {/* Arc Active Content (Fades in) */}
                 <motion.div
                     style={{ opacity: contentOpacity, y: contentY }}
-                    className="absolute top-[10%] z-10 flex flex-col items-center justify-center text-center pointer-events-none px-4"
+                    className="absolute top-36 z-10 flex flex-col items-center justify-center text-center pointer-events-none px-4 md:top-[10%]"
                 >
                     <h2 className="text-3xl md:text-5xl font-semibold text-gray-900 tracking-tight mb-4">
                         {lang === "en" ? "Explore the work" : "Explora la obra"}

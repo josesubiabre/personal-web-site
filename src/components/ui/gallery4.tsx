@@ -1,6 +1,7 @@
 "use client";
 
 import { ArrowDown, ArrowLeft, ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -64,15 +65,25 @@ const Gallery4 = ({
       <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="mb-8 flex items-end justify-between gap-4 md:mb-14 lg:mb-16">
           <div className="flex flex-col gap-4">
-            <div className="flex items-center gap-3">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
+              className="flex items-center gap-3"
+            >
               <h2 className="font-serif text-xl lowercase tracking-tight text-black sm:text-2xl">
                 {title}
               </h2>
               <ArrowDown className="h-5 w-5 text-black" strokeWidth={1.5} />
-            </div>
-            <p className="max-w-lg text-sm leading-relaxed text-gray-700">
+            </motion.div>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="max-w-lg text-sm leading-relaxed text-gray-700"
+            >
               {description}
-            </p>
+            </motion.p>
           </div>
           <div className="hidden shrink-0 gap-2 md:flex">
             <Button
