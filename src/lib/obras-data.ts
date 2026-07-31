@@ -23,6 +23,12 @@ export const IMAGES = [
     "main/Atacama.JPG",
 ];
 
+// Títulos personalizados por ruta. Si una imagen aparece aquí, se muestra
+// este texto en vez del nombre del archivo. Ejemplo:
+//   "main/Farellones.jpg": "farellones, cordillera de los andes",
+const TITULOS: Record<string, string> = {};
+
 // "main/La_Reina_De_Babilonia.jpg" -> "La Reina De Babilonia"
 export const titleFromSrc = (src: string) =>
+    TITULOS[src] ??
     src.split("/").pop()!.replace(/\.[^.]+$/, "").replace(/_/g, " ");
