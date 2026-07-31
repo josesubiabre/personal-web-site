@@ -61,19 +61,21 @@ export default function App() {
         >
           josé subiabre
         </a>
-        <nav className="flex flex-wrap items-center justify-center gap-4 text-[0.72rem] font-medium uppercase tracking-[0.14em] text-gray-500 sm:gap-7 md:justify-end">
-          <a href="#obras" className="transition-colors hover:text-blue-700">
-            {labels.works}
-          </a>
-          <a href="#built" className="transition-colors hover:text-blue-700">
-            {labels.built}
-          </a>
-          <a href="#books" className="transition-colors hover:text-blue-700">
-            {labels.books}
-          </a>
-          <a href="#sobre-mi" className="transition-colors hover:text-blue-700">
-            {labels.about}
-          </a>
+        <nav className="flex flex-col items-center gap-2 text-[0.72rem] font-medium uppercase tracking-[0.14em] text-gray-500 md:flex-row md:gap-7">
+          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-7">
+            <a href="#obras" className="transition-colors hover:text-blue-700">
+              {labels.works}
+            </a>
+            <a href="#built" className="transition-colors hover:text-blue-700">
+              {labels.built}
+            </a>
+            <a href="#books" className="transition-colors hover:text-blue-700">
+              {labels.books}
+            </a>
+            <a href="#sobre-mi" className="transition-colors hover:text-blue-700">
+              {labels.about}
+            </a>
+          </div>
           <button
             type="button"
             onClick={() => setLang(lang === "en" ? "es" : "en")}

@@ -60,7 +60,7 @@ const Gallery4 = ({
   }, [carouselApi]);
 
   return (
-    <section className="pb-32 pt-14 md:pt-32">
+    <section className="pb-32 md:pt-32">
       <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="mb-8 flex items-end justify-between gap-4 md:mb-14 lg:mb-16">
           <div className="flex flex-col gap-4">
