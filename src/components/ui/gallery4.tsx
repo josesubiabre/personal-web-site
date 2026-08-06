@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowDown, ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowDown, ArrowLeft, ArrowRight, Play } from "lucide-react";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
@@ -146,6 +146,18 @@ const Gallery4 = ({
                       className="absolute h-full w-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 h-full bg-[linear-gradient(hsl(var(--primary)/0),hsl(var(--primary)/0.4),hsl(var(--primary)/0.8)_100%)] mix-blend-multiply" />
+                    {/* Botón de play centrado en las obras con música */}
+                    {item.music && (
+                      <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+                        <span className="flex h-16 w-16 items-center justify-center rounded-full bg-white/20 backdrop-blur-sm transition-transform duration-300 group-hover:scale-110">
+                          <Play
+                            className="ml-1 h-7 w-7 text-white"
+                            fill="currentColor"
+                            strokeWidth={0}
+                          />
+                        </span>
+                      </div>
+                    )}
                     <div className="absolute inset-x-0 bottom-0 flex flex-col items-start p-6 text-primary-foreground md:p-8">
                       <div className="mb-2 pt-4 text-xl font-semibold md:mb-3 md:pt-4 lg:pt-4">
                         {item.title}
@@ -154,7 +166,13 @@ const Gallery4 = ({
                         {item.description}
                       </div>
                       <div className="flex items-center text-sm">
-                        {title === "works" ? "View work" : "Ver obra"}{" "}
+                        {item.music
+                          ? title === "works"
+                            ? "Listen"
+                            : "Escuchar"
+                          : title === "works"
+                            ? "View work"
+                            : "Ver obra"}{" "}
                         <ArrowRight className="ml-2 size-5 transition-transform group-hover:translate-x-1" />
                       </div>
                     </div>
