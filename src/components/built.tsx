@@ -61,6 +61,21 @@ const PROYECTOS: Record<Language, Proyecto[]> = {
       ],
     },
     {
+      name: "Dra. Antonia Subiabre",
+      description:
+        "a warm, editorial website for a facial aesthetics practice in Santiago.",
+      stack: "Next.js · TypeScript · Tailwind CSS · Vercel",
+      images: [
+        "built/Dra-Antonia-Subiabre/AS_Laptop_Main.png",
+        "built/Dra-Antonia-Subiabre/AS_Phone_Mock.png",
+        "built/Dra-Antonia-Subiabre/AS_Desktop_Menu.png",
+      ],
+      links: [
+        { label: "view project", href: "https://website-antonia-subiabre.vercel.app/" },
+        { label: "view design", gallery: true },
+      ],
+    },
+    {
       name: "ParaNonna",
       description:
         "an early-stage product and brand exploring everyday objects for older adults.",
@@ -107,6 +122,21 @@ const PROYECTOS: Record<Language, Proyecto[]> = {
       links: [
         { label: "ver proyecto", href: "https://normaobra.vercel.app/" },
         { label: "ver código", href: "https://github.com/josesubiabre/oguc-rag" },
+      ],
+    },
+    {
+      name: "Dra. Antonia Subiabre",
+      description:
+        "un sitio web cálido y editorial para una consulta de estética facial en Santiago.",
+      stack: "Next.js · TypeScript · Tailwind CSS · Vercel",
+      images: [
+        "built/Dra-Antonia-Subiabre/AS_Laptop_Main.png",
+        "built/Dra-Antonia-Subiabre/AS_Phone_Mock.png",
+        "built/Dra-Antonia-Subiabre/AS_Desktop_Menu.png",
+      ],
+      links: [
+        { label: "ver proyecto", href: "https://website-antonia-subiabre.vercel.app/" },
+        { label: "ver diseño", gallery: true },
       ],
     },
     {
