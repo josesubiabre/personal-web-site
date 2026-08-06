@@ -13,6 +13,9 @@ const items: Gallery4Item[] = [
     description: "JOTD · an AI music project",
     href: "works/tokyo_afterglow.png",
     image: "works/tokyo_afterglow.png",
+    // El SANTIÉ de este arte está más arriba que el de perdidos; este encuadre
+    // los deja a la misma altura en las tarjetas del carousel
+    imagePos: "center 35%",
     music: "https://open.spotify.com/album/0EvRNQW89ciMf4Av9i9brh",
   },
   {

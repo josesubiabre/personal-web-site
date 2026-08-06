@@ -24,6 +24,9 @@ export interface Gallery4Item {
   // Enlace a Spotify (open.spotify.com/...) o Suno (suno.com/song/...) —
   // muestra el reproductor embebido en la vista expandida
   music?: string;
+  // object-position del recorte en la tarjeta (p. ej. "center 35%") —
+  // solo afecta el encuadre del carousel, no la vista expandida
+  imagePos?: string;
 }
 
 export interface Gallery4Props {
@@ -143,6 +146,7 @@ const Gallery4 = ({
                     <img
                       src={item.image}
                       alt={item.title}
+                      style={item.imagePos ? { objectPosition: item.imagePos } : undefined}
                       className="absolute h-full w-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 h-full bg-[linear-gradient(hsl(var(--primary)/0),hsl(var(--primary)/0.4),hsl(var(--primary)/0.8)_100%)] mix-blend-multiply" />
