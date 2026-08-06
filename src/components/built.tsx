@@ -50,6 +50,17 @@ const PROYECTOS: Record<Language, Proyecto[]> = {
       ],
     },
     {
+      name: "NormaObra",
+      description:
+        "a RAG-powered assistant for navigating Chilean building regulations with verifiable citations.",
+      stack: "Python · FastAPI · Next.js · Gemini · Groq",
+      images: [],
+      links: [
+        { label: "view project", href: "https://normaobra.vercel.app/" },
+        { label: "view code", href: "https://github.com/josesubiabre/oguc-rag" },
+      ],
+    },
+    {
       name: "ParaNonna",
       description:
         "an early-stage product and brand exploring everyday objects for older adults.",
@@ -85,6 +96,17 @@ const PROYECTOS: Record<Language, Proyecto[]> = {
       links: [
         { label: "ver proyecto", gallery: true },
         { label: "ver código", href: "https://github.com/josesubiabre/morning-tech-digest" },
+      ],
+    },
+    {
+      name: "NormaObra",
+      description:
+        "un asistente con RAG para navegar la normativa de construcción chilena con citas verificables.",
+      stack: "Python · FastAPI · Next.js · Gemini · Groq",
+      images: [],
+      links: [
+        { label: "ver proyecto", href: "https://normaobra.vercel.app/" },
+        { label: "ver código", href: "https://github.com/josesubiabre/oguc-rag" },
       ],
     },
     {
