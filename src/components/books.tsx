@@ -224,11 +224,12 @@ export default function Books({ lang }: { lang: "en" | "es" }) {
         </div>
 
         <div className="h-full w-full">
-          {/* Bajamos y encogemos un poco el anillo para despejar el título */}
+          {/* Bajamos y encogemos un poco el anillo para despejar el título;
+              en móvil baja más porque el subtítulo ocupa más alto */}
           <CircularGallery
             items={LIBROS}
             radius={radius}
-            className="translate-y-[9%] scale-[0.58] sm:scale-[0.88]"
+            className="translate-y-[16%] scale-[0.58] sm:translate-y-[9%] sm:scale-[0.88]"
             onItemClick={(_, i) => setSelected(LIBROS[i])}
           />
         </div>
