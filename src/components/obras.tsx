@@ -140,8 +140,8 @@ export default function Obras({ lang }: { lang: "en" | "es" }) {
     title: lang === "en" ? "works" : "obras",
     description:
       lang === "en"
-        ? "images, sound, places, and visual experiments."
-        : "imágenes, sonido, lugares y experimentos visuales.",
+        ? "a curated selection of visual and musical works."
+        : "una selección curada de obras visuales y musicales.",
     close: lang === "en" ? "Close ✕" : "Cerrar ✕",
     prev: lang === "en" ? "Previous work" : "Obra anterior",
     next: lang === "en" ? "Next work" : "Siguiente obra",
