@@ -7,12 +7,9 @@ import tailwindcss from "@tailwindcss/vite";
 // headers personalizados, así que va como <meta> en el HTML.
 // 'unsafe-inline' en style-src es necesario: framer-motion y embla animan
 // vía atributos style inline.
-// Los dominios de Spotify en script-src son para la iFrame API (autoplay
-// al abrir una obra con música): open.spotify.com sirve el loader y este
-// inyecta el script real desde embed-cdn.spotifycdn.com.
 const CSP = [
   "default-src 'self'",
-  "script-src 'self' https://open.spotify.com https://embed-cdn.spotifycdn.com",
+  "script-src 'self'",
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data:",
   "font-src 'self'",

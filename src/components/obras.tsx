@@ -56,11 +56,7 @@ const items: Gallery4Item[] = [
 // Convierte un enlace normal de Spotify o Suno al formato embebible del
 // reproductor. Solo acepta URLs cuyo dominio sea exactamente el esperado,
 // para que un link mal pegado no cargue un iframe de otro sitio.
-// Para Spotify también entrega el URI (spotify:album:...), que es lo que
-// necesita la iFrame API para el autoplay.
-function toEmbed(
-  url: string,
-): { src: string; height: number; uri?: string } | null {
+function toEmbed(url: string): { src: string; height: number } | null {
   let parsed: URL;
   try {
     parsed = new URL(url);
@@ -70,7 +66,6 @@ function toEmbed(
   if (parsed.hostname === "open.spotify.com")
     return {
       src: `https://open.spotify.com/embed${parsed.pathname}`,
-      uri: `spotify${parsed.pathname.replace(/\//g, ":")}`,
       height: 80,
     };
   if (parsed.hostname === "suno.com" && parsed.pathname.startsWith("/song/"))
@@ -82,116 +77,49 @@ function toEmbed(
 }
 
 // --- Reproductor de Spotify con autoplay -----------------------------------
-// El iframe normal de Spotify no puede partir solo: hay que usar su iFrame
-// API oficial, que expone un controlador con play(). El script se carga una
-// sola vez, la primera vez que se abre una obra con música.
-type SpotifyController = {
-  play: () => void;
-  destroy: () => void;
-  addListener: (event: "ready", cb: () => void) => void;
-};
-
-type SpotifyIframeApi = {
-  createController: (
-    el: HTMLElement,
-    options: { uri: string; width?: string | number; height?: string | number },
-    cb: (controller: SpotifyController) => void,
-  ) => void;
-};
-
-declare global {
-  interface Window {
-    onSpotifyIframeApiReady?: (api: SpotifyIframeApi) => void;
-  }
-}
-
-let spotifyApi: Promise<SpotifyIframeApi> | null = null;
-
-function loadSpotifyApi(): Promise<SpotifyIframeApi> {
-  if (!spotifyApi) {
-    spotifyApi = new Promise((resolve, reject) => {
-      window.onSpotifyIframeApiReady = resolve;
-      const script = document.createElement("script");
-      script.src = "https://open.spotify.com/embed/iframe-api/v1";
-      script.async = true;
-      script.onerror = () => {
-        spotifyApi = null;
-        reject(new Error("No se pudo cargar la iFrame API de Spotify"));
-      };
-      document.body.appendChild(script);
-    });
-  }
-  return spotifyApi;
-}
-
-// Player embebido que empieza a sonar al montarse. Si la API no carga
-// (p. ej. bloqueada por el navegador), cae al iframe normal sin autoplay.
+// El embed de Spotify avisa al padre con postMessage {type:"ready"} cuando
+// carga, y acepta {command:"play"}: se lo mandamos ahí para que la música
+// parta sola. Es el mismo protocolo que usa su iFrame API oficial, pero sin
+// cargar el script externo (que usa eval y chocaría con nuestro CSP).
 function SpotifyPlayer({
-  uri,
-  fallbackSrc,
+  src,
   height,
   title,
 }: {
-  uri: string;
-  fallbackSrc: string;
+  src: string;
   height: number;
   title: string;
 }) {
-  const hostRef = useRef<HTMLDivElement>(null);
-  const [failed, setFailed] = useState(false);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const played = useRef(false);
 
   useEffect(() => {
-    const host = hostRef.current;
-    if (!host) return;
-    let cancelled = false;
-    let controller: SpotifyController | null = null;
-    // La API reemplaza el nodo que recibe por el iframe, así que le damos
-    // uno propio fuera del control de React
-    const target = document.createElement("div");
-    host.appendChild(target);
-    loadSpotifyApi()
-      .then((api) => {
-        if (cancelled) return;
-        api.createController(target, { uri, width: "100%", height }, (c) => {
-          if (cancelled) {
-            try {
-              c.destroy();
-            } catch {}
-            return;
-          }
-          controller = c;
-          c.addListener("ready", () => c.play());
-        });
-      })
-      .catch(() => {
-        if (!cancelled) setFailed(true);
-      });
-    return () => {
-      cancelled = true;
-      try {
-        controller?.destroy();
-      } catch {}
-      host.replaceChildren();
+    played.current = false;
+    const onMessage = (e: MessageEvent) => {
+      if (e.origin !== "https://open.spotify.com") return;
+      const frame = iframeRef.current;
+      if (!frame || e.source !== frame.contentWindow) return;
+      if (e.data?.type === "ready" && !played.current) {
+        played.current = true;
+        frame.contentWindow?.postMessage(
+          { command: "play" },
+          "https://open.spotify.com",
+        );
+      }
     };
-  }, [uri, height]);
+    window.addEventListener("message", onMessage);
+    return () => window.removeEventListener("message", onMessage);
+  }, [src]);
 
-  if (failed)
-    return (
-      <iframe
-        src={fallbackSrc}
-        title={title}
-        width="100%"
-        height={height}
-        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-        loading="lazy"
-        className="relative z-20 mt-3 rounded-xl border-0"
-      />
-    );
   return (
-    <div
-      ref={hostRef}
-      style={{ minHeight: height }}
-      className="relative z-20 mt-3 overflow-hidden rounded-xl"
+    <iframe
+      ref={iframeRef}
+      src={src}
+      title={title}
+      width="100%"
+      height={height}
+      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+      className="relative z-20 mt-3 rounded-xl border-0"
     />
   );
 }
@@ -306,11 +234,10 @@ export default function Obras({ lang }: { lang: "en" | "es" }) {
                 className="max-h-[80vh] max-w-full rounded-2xl object-contain shadow-2xl"
               />
               {musicEmbed &&
-                (musicEmbed.uri ? (
+                (musicEmbed.src.startsWith("https://open.spotify.com/") ? (
                   <SpotifyPlayer
                     key={selected.id}
-                    uri={musicEmbed.uri}
-                    fallbackSrc={musicEmbed.src}
+                    src={musicEmbed.src}
                     height={musicEmbed.height}
                     title={`Player: ${selected.title}`}
                   />
