@@ -235,8 +235,10 @@ export default function Obras({ lang }: { lang: "en" | "es" }) {
               />
               {musicEmbed &&
                 (musicEmbed.src.startsWith("https://open.spotify.com/") ? (
+                  // key distinta a la del <img> de al lado: keys duplicadas
+                  // entre hermanos corrompen la reconciliación de React
                   <SpotifyPlayer
-                    key={selected.id}
+                    key={`player-${selected.id}`}
                     src={musicEmbed.src}
                     height={musicEmbed.height}
                     title={`Player: ${selected.title}`}
