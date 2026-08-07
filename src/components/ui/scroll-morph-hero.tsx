@@ -307,7 +307,7 @@ export default function IntroAnimation({ lang }: { lang: "en" | "es" }) {
                         transition={{ duration: 1 }}
                         className="px-6 text-lg font-medium tracking-tight text-gray-800 sm:text-2xl md:text-3xl"
                     >
-                        {lang === "en" ? "photography · art · music" : "fotografía · arte · música"}
+                        {lang === "en" ? "photography · art · music · vibecode" : "fotografía · arte · música · vibecode"}
                     </motion.h1>
                 </div>
 
