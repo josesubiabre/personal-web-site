@@ -25,16 +25,16 @@ const LIBROS: Libro[] = [
     },
   },
   {
-    common: "big sur",
+    common: "on the road",
     binomial: "jack kerouac",
     genero: { en: "fiction · beat generation", es: "ficción · generación beat" },
     resena: {
-      en: "Kerouac's alter ego Jack Duluoz, worn down by fame and drink, retreats to a cabin on the California coast seeking peace — and finds instead a raw confrontation with himself, told in the wild, honest prose that defined the Beat Generation.",
-      es: "Jack Duluoz, el álter ego de Kerouac, agotado por la fama y el alcohol, se refugia en una cabaña en la costa de California buscando paz — y encuentra en cambio una confrontación cruda consigo mismo, contada en la prosa salvaje y honesta que definió a la Generación Beat.",
+      en: "The novel that defined the Beat Generation, based on Kerouac's own travels: Sal Paradise and Dean Moriarty crisscross America in a restless search for jazz, freedom and meaning — a feverish celebration of the road, friendship and the hunger to live everything at once.",
+      es: "La novela que definió a la Generación Beat, basada en los viajes del propio Kerouac: Sal Paradise y Dean Moriarty cruzan Estados Unidos de punta a punta en una búsqueda inquieta de jazz, libertad y sentido — una celebración febril de la carretera, la amistad y el hambre de vivirlo todo a la vez.",
     },
     photo: {
-      url: "books/Keroauc_Jack_Big_Sur.jpg",
-      text: "Big Sur book cover",
+      url: "books/Keroauc_Jack_On_the_road.jpg",
+      text: "On the Road book cover",
     },
   },
   {
@@ -139,19 +139,6 @@ const LIBROS: Libro[] = [
     photo: {
       url: "books/Breathe_James_Deep.jpg",
       text: "Breath book cover",
-    },
-  },
-  {
-    common: "deep",
-    binomial: "james nestor",
-    genero: { en: "science · adventure", es: "ciencia · aventura" },
-    resena: {
-      en: "A plunge into freediving and renegade ocean science: record-setting divers and researchers reveal the hidden abilities of the human body — and what the deepest places on Earth tell us about ourselves.",
-      es: "Una inmersión en la apnea y la ciencia oceánica renegada: buzos que baten récords e investigadores revelan las capacidades ocultas del cuerpo humano — y lo que los lugares más profundos de la Tierra nos dicen sobre nosotros mismos.",
-    },
-    photo: {
-      url: "books/Nestor_James_Deep.jpg",
-      text: "Deep book cover",
     },
   },
 ];
