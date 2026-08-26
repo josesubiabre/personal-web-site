@@ -76,6 +76,23 @@ const PROYECTOS: Record<Language, Proyecto[]> = {
       ],
     },
     {
+      name: "Punto Libre",
+      description:
+        "a financial planning tool that turns everyday spending into a personal financial freedom target.",
+      stack: "Next.js · Tailwind CSS · Vercel",
+      images: [
+        "built/PuntoLibre/PuntoLibre_Desktop_Landing.png",
+        "built/PuntoLibre/PuntoLibre_Desktop_Calculadora.png",
+        "built/PuntoLibre/PuntoLibre_Desktop_Resultados.png",
+        "built/PuntoLibre/PuntoLibre_Phone_Calculadora.png",
+        "built/PuntoLibre/PuntoLibre_Phone_Calculadora_2.png",
+      ],
+      links: [
+        { label: "view project", href: "https://puntolibre.vercel.app/" },
+        { label: "view design", gallery: true },
+      ],
+    },
+    {
       name: "ParaNonna",
       description:
         "an early-stage product and brand exploring everyday objects for older adults.",
@@ -136,6 +153,23 @@ const PROYECTOS: Record<Language, Proyecto[]> = {
       ],
       links: [
         { label: "ver proyecto", href: "https://website-antonia-subiabre.vercel.app/" },
+        { label: "ver diseño", gallery: true },
+      ],
+    },
+    {
+      name: "Punto Libre",
+      description:
+        "una herramienta de planificación financiera que convierte el gasto cotidiano en una meta personal de libertad financiera.",
+      stack: "Next.js · Tailwind CSS · Vercel",
+      images: [
+        "built/PuntoLibre/PuntoLibre_Desktop_Landing.png",
+        "built/PuntoLibre/PuntoLibre_Desktop_Calculadora.png",
+        "built/PuntoLibre/PuntoLibre_Desktop_Resultados.png",
+        "built/PuntoLibre/PuntoLibre_Phone_Calculadora.png",
+        "built/PuntoLibre/PuntoLibre_Phone_Calculadora_2.png",
+      ],
+      links: [
+        { label: "ver proyecto", href: "https://puntolibre.vercel.app/" },
         { label: "ver diseño", gallery: true },
       ],
     },
