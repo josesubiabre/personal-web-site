@@ -1,6 +1,9 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+/* Modo noche por clase .dark en <html> (la controla el toggle del header) */
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme inline {
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
@@ -26,6 +29,15 @@
   --border: 220 8% 88%;
   --input: 220 8% 88%;
   --ring: 219 17% 9%;
+}
+
+/* Modo noche: solo se voltean fondo y texto base. Los tokens shadcn se
+   mantienen: las tarjetas de la galería usan --primary para su degradado
+   oscuro sobre las fotos, que sirve igual en ambos temas. */
+.dark {
+  --background: #101010;
+  --foreground: #f2f2f2;
+  color-scheme: dark;
 }
 
 @theme inline {

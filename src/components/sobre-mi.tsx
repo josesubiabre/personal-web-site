@@ -157,7 +157,9 @@ function PaginationDots({
           key={index}
           onClick={() => onSelect(index)}
           className={`h-2 w-2 rounded-full transition-colors duration-200 ${
-            index === current ? "bg-black" : "bg-gray-300"
+            index === current
+              ? "bg-black dark:bg-white"
+              : "bg-gray-300 dark:bg-gray-600"
           }`}
           aria-label={`Go to photo ${index + 1}`}
         />
@@ -191,10 +193,10 @@ export default function SobreMi({ lang }: { lang: Language }) {
             className="lg:col-span-2"
           >
             <div className="flex items-center gap-3">
-              <h2 className="font-serif text-xl lowercase tracking-tight text-black sm:text-2xl">
+              <h2 className="font-serif text-xl lowercase tracking-tight text-black dark:text-white sm:text-2xl">
                 {copy.about}
               </h2>
-              <ArrowDown className="h-5 w-5 text-black" strokeWidth={1.5} />
+              <ArrowDown className="h-5 w-5 text-black dark:text-white" strokeWidth={1.5} />
             </div>
           </motion.div>
 
@@ -206,7 +208,7 @@ export default function SobreMi({ lang }: { lang: Language }) {
             className="lg:col-span-5"
           >
             <div className="space-y-6">
-              <p className="text-sm italic leading-relaxed text-black">
+              <p className="text-sm italic leading-relaxed text-black dark:text-white">
                 {copy.quote}
               </p>
 
@@ -216,7 +218,7 @@ export default function SobreMi({ lang }: { lang: Language }) {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4, delay: 0.2 + index * 0.1 }}
-                  className="text-justify text-sm leading-relaxed text-gray-700"
+                  className="text-justify text-sm leading-relaxed text-gray-700 dark:text-gray-300"
                 >
                   {texto}
                 </motion.p>
@@ -273,10 +275,10 @@ export default function SobreMi({ lang }: { lang: Language }) {
             className="lg:col-span-2"
           >
             <div className="flex items-center gap-3">
-              <h2 className="font-serif text-xl lowercase tracking-tight text-black sm:text-2xl">
+              <h2 className="font-serif text-xl lowercase tracking-tight text-black dark:text-white sm:text-2xl">
                 {copy.elsewhere}
               </h2>
-              <ArrowDown className="h-5 w-5 text-black" strokeWidth={1.5} />
+              <ArrowDown className="h-5 w-5 text-black dark:text-white" strokeWidth={1.5} />
             </div>
           </motion.div>
 
@@ -286,27 +288,27 @@ export default function SobreMi({ lang }: { lang: Language }) {
             transition={{ duration: 0.5, delay: 0.4 }}
             className="lg:col-span-10"
           >
-            <p className="text-sm leading-relaxed text-gray-700">
+            <p className="text-sm leading-relaxed text-gray-700 dark:text-gray-300">
               {copy.archive}
             </p>
 
-            <ul className="mt-8 divide-y divide-gray-200 border-b border-gray-200">
+            <ul className="mt-8 divide-y divide-gray-200 border-b border-gray-200 dark:divide-gray-800 dark:border-gray-800">
               {ELSEWHERE[lang].map((item) => (
                 <li
                   key={item.source}
                   className="flex flex-col gap-1 py-4 sm:flex-row sm:items-baseline sm:gap-6"
                 >
-                  <span className="w-44 shrink-0 text-sm font-medium text-black">
+                  <span className="w-44 shrink-0 text-sm font-medium text-black dark:text-white">
                     {item.source}
                   </span>
-                  <span className="flex-1 text-sm leading-relaxed text-gray-700">
+                  <span className="flex-1 text-sm leading-relaxed text-gray-700 dark:text-gray-300">
                     {item.description}
                   </span>
                   <a
                     href={item.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex shrink-0 items-center gap-1 text-sm text-black transition-colors hover:text-blue-700"
+                    className="flex shrink-0 items-center gap-1 text-sm text-black dark:text-white transition-colors hover:text-blue-700 dark:hover:text-blue-400"
                   >
                     {item.label}
                     <ArrowUpRight className="h-4 w-4" strokeWidth={1.5} />

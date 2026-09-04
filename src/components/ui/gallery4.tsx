@@ -74,16 +74,16 @@ const Gallery4 = ({
               transition={{ duration: 0.5 }}
               className="flex items-center gap-3"
             >
-              <h2 className="font-serif text-xl lowercase tracking-tight text-black sm:text-2xl">
+              <h2 className="font-serif text-xl lowercase tracking-tight text-black sm:text-2xl dark:text-white">
                 {title}
               </h2>
-              <ArrowDown className="h-5 w-5 text-black" strokeWidth={1.5} />
+              <ArrowDown className="h-5 w-5 text-black dark:text-white" strokeWidth={1.5} />
             </motion.div>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="max-w-lg text-sm leading-relaxed text-gray-700"
+              className="max-w-lg text-sm leading-relaxed text-gray-700 dark:text-gray-300"
             >
               {description}
             </motion.p>
@@ -96,7 +96,7 @@ const Gallery4 = ({
                 carouselApi?.scrollPrev();
               }}
               disabled={!canScrollPrev}
-              className="disabled:pointer-events-auto"
+              className="disabled:pointer-events-auto dark:text-white dark:hover:bg-white/10"
             >
               <ArrowLeft className="size-5" />
             </Button>
@@ -107,7 +107,7 @@ const Gallery4 = ({
                 carouselApi?.scrollNext();
               }}
               disabled={!canScrollNext}
-              className="disabled:pointer-events-auto"
+              className="disabled:pointer-events-auto dark:text-white dark:hover:bg-white/10"
             >
               <ArrowRight className="size-5" />
             </Button>
@@ -191,7 +191,9 @@ const Gallery4 = ({
             <button
               key={index}
               className={`h-2 w-2 rounded-full transition-colors ${
-                currentSlide === index ? "bg-primary" : "bg-primary/20"
+                currentSlide === index
+                  ? "bg-primary dark:bg-white"
+                  : "bg-primary/20 dark:bg-white/20"
               }`}
               onClick={() => carouselApi?.scrollTo(index)}
               aria-label={`Go to work ${index + 1}`}

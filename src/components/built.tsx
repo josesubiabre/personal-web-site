@@ -232,10 +232,10 @@ export default function Built({ lang }: { lang: Language }) {
             className="lg:col-span-2"
           >
             <div className="flex items-center gap-3">
-              <h2 className="font-serif text-xl lowercase tracking-tight text-black sm:text-2xl">
+              <h2 className="font-serif text-xl lowercase tracking-tight text-black dark:text-white sm:text-2xl">
                 {copy.title}
               </h2>
-              <ArrowDown className="h-5 w-5 text-black" strokeWidth={1.5} />
+              <ArrowDown className="h-5 w-5 text-black dark:text-white" strokeWidth={1.5} />
             </div>
           </motion.div>
 
@@ -246,25 +246,25 @@ export default function Built({ lang }: { lang: Language }) {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="lg:col-span-10"
           >
-            <p className="text-sm leading-relaxed text-gray-700">
+            <p className="text-sm leading-relaxed text-gray-700 dark:text-gray-300">
               {copy.intro}
             </p>
 
-            <ul className="mt-8 divide-y divide-gray-200 border-b border-gray-200">
+            <ul className="mt-8 divide-y divide-gray-200 border-b border-gray-200 dark:divide-gray-800 dark:border-gray-800">
               {proyectos.map((proyecto) => (
                 <li
                   key={proyecto.name}
                   className="flex flex-col gap-1 py-4 sm:flex-row sm:items-baseline sm:gap-6"
                 >
-                  <span className="w-44 shrink-0 text-sm font-medium text-black">
+                  <span className="w-44 shrink-0 text-sm font-medium text-black dark:text-white">
                     {proyecto.name}
                   </span>
                   <span className="flex-1">
-                    <span className="block text-sm leading-relaxed text-gray-700">
+                    <span className="block text-sm leading-relaxed text-gray-700 dark:text-gray-300">
                       {proyecto.description}
                     </span>
                     {proyecto.stack && (
-                      <span className="mt-1 block text-xs text-gray-400">
+                      <span className="mt-1 block text-xs text-gray-400 dark:text-gray-500">
                         {proyecto.stack}
                       </span>
                     )}
@@ -294,7 +294,7 @@ export default function Built({ lang }: { lang: Language }) {
                                 index: 0,
                               })
                             }
-                            className="flex items-center gap-1 text-sm text-black transition-colors hover:text-blue-700"
+                            className="flex items-center gap-1 text-sm text-black dark:text-white transition-colors hover:text-blue-700 dark:hover:text-blue-400"
                           >
                             {link.label}
                             <ArrowUpRight className="h-4 w-4" strokeWidth={1.5} />
@@ -307,7 +307,7 @@ export default function Built({ lang }: { lang: Language }) {
                           href={link.href}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center gap-1 text-sm text-black transition-colors hover:text-blue-700"
+                          className="flex items-center gap-1 text-sm text-black dark:text-white transition-colors hover:text-blue-700 dark:hover:text-blue-400"
                         >
                           {link.label}
                           <ArrowUpRight className="h-4 w-4" strokeWidth={1.5} />
@@ -315,7 +315,7 @@ export default function Built({ lang }: { lang: Language }) {
                       ) : (
                         <span
                           key={link.label}
-                          className="flex items-center gap-1 text-sm text-gray-300"
+                          className="flex items-center gap-1 text-sm text-gray-300 dark:text-gray-600"
                         >
                           {link.label}
                           <ArrowUpRight className="h-4 w-4" strokeWidth={1.5} />

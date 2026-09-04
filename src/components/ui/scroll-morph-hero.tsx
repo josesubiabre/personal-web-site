@@ -295,7 +295,7 @@ export default function IntroAnimation({ lang }: { lang: "en" | "es" }) {
     const contentY = useTransform(smoothMorph, [0.8, 1], [20, 0]);
 
     return (
-        <div ref={containerRef} className="relative w-full h-full bg-[#FAFAFA] overflow-hidden">
+        <div ref={containerRef} className="relative w-full h-full bg-[#FAFAFA] overflow-hidden dark:bg-[#101010]">
             {/* Container */}
             <div className="flex h-full w-full flex-col items-center justify-center perspective-1000">
 
@@ -305,7 +305,7 @@ export default function IntroAnimation({ lang }: { lang: "en" | "es" }) {
                         initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
                         animate={introPhase === "circle" && morphValue < 0.5 ? { opacity: 1 - morphValue * 2, y: 0, filter: "blur(0px)" } : { opacity: 0, filter: "blur(10px)" }}
                         transition={{ duration: 1 }}
-                        className="px-6 text-lg font-medium tracking-tight text-gray-800 sm:text-2xl md:text-3xl"
+                        className="px-6 text-lg font-medium tracking-tight text-gray-800 sm:text-2xl md:text-3xl dark:text-gray-100"
                     >
                         <span className="block">
                             {lang === "en" ? "photography · art · music" : "fotografía · arte · música"}
@@ -319,10 +319,10 @@ export default function IntroAnimation({ lang }: { lang: "en" | "es" }) {
                     style={{ opacity: contentOpacity, y: contentY }}
                     className="absolute top-36 z-10 flex flex-col items-center justify-center text-center pointer-events-none px-4 md:top-[10%]"
                 >
-                    <h2 className="text-3xl md:text-5xl font-semibold text-gray-900 tracking-tight mb-4">
+                    <h2 className="text-3xl md:text-5xl font-semibold text-gray-900 tracking-tight mb-4 dark:text-gray-100">
                         {lang === "en" ? "Explore the work" : "Explora la obra"}
                     </h2>
-                    <p className="text-sm md:text-base text-gray-600 max-w-lg leading-relaxed">
+                    <p className="text-sm md:text-base text-gray-600 max-w-lg leading-relaxed dark:text-gray-400">
                         {lang === "en" ? "A selection of personal works." : "Una selección de obras personales."}{" "}
                         <br className="hidden md:block" />
                         {lang === "en" ? "Scroll to browse the selection." : "Haz scroll para recorrer la selección."}

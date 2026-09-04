@@ -194,16 +194,16 @@ export default function Books({ lang }: { lang: "en" | "es" }) {
               transition={{ duration: 0.5 }}
               className="flex items-center gap-3"
             >
-              <h2 className="font-serif text-xl lowercase tracking-tight text-black sm:text-2xl">
+              <h2 className="font-serif text-xl lowercase tracking-tight text-black sm:text-2xl dark:text-white">
                 {copy.title}
               </h2>
-              <ArrowDown className="h-5 w-5 text-black" strokeWidth={1.5} />
+              <ArrowDown className="h-5 w-5 text-black dark:text-white" strokeWidth={1.5} />
             </motion.div>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="mt-4 max-w-md text-sm leading-relaxed text-gray-700"
+              className="mt-4 max-w-md text-sm leading-relaxed text-gray-700 dark:text-gray-300"
             >
               {copy.description}
             </motion.p>
@@ -239,7 +239,7 @@ export default function Books({ lang }: { lang: "en" | "es" }) {
               exit={{ scale: 0.6, opacity: 0 }}
               transition={{ type: "spring", stiffness: 220, damping: 26 }}
               onClick={(e) => e.stopPropagation()}
-              className="relative m-auto flex max-w-2xl cursor-default flex-col gap-6 rounded-2xl bg-white p-6 shadow-2xl sm:flex-row sm:gap-8 sm:p-8"
+              className="relative m-auto flex max-w-2xl cursor-default flex-col gap-6 rounded-2xl bg-white p-6 shadow-2xl sm:flex-row sm:gap-8 sm:p-8 dark:bg-neutral-900"
             >
               <img
                 src={selected.photo.url}
@@ -247,18 +247,18 @@ export default function Books({ lang }: { lang: "en" | "es" }) {
                 className="mx-auto h-64 w-auto shrink-0 self-start rounded-md object-contain shadow-lg sm:mx-0 sm:h-72"
               />
               <div className="flex flex-col">
-                <h3 className="font-serif text-2xl tracking-tight text-black sm:text-3xl">
+                <h3 className="font-serif text-2xl tracking-tight text-black sm:text-3xl dark:text-white">
                   {selected.common}
                 </h3>
-                <p className="mt-1 text-sm text-gray-500">
+                <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
                   {copy.by} {selected.binomial} · {selected.genero[lang]}
                 </p>
-                <p className="mt-4 text-sm leading-relaxed text-gray-700">
+                <p className="mt-4 text-sm leading-relaxed text-gray-700 dark:text-gray-300">
                   {selected.resena[lang]}
                 </p>
                 <button
                   onClick={() => setSelected(null)}
-                  className="mt-6 self-start text-xs uppercase tracking-[0.14em] text-gray-400 transition-colors hover:text-black"
+                  className="mt-6 self-start text-xs uppercase tracking-[0.14em] text-gray-400 transition-colors hover:text-black dark:text-gray-500 dark:hover:text-white"
                 >
                   {copy.close}
                 </button>
