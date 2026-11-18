@@ -65,6 +65,12 @@ const ELSEWHERE = {
       label: "view profile",
       href: "https://www.linkedin.com/in/josesubiabre/?locale=en",
     },
+    {
+      source: "GitHub",
+      description: "the code behind the products and tools i build.",
+      label: "view profile",
+      href: "https://github.com/josesubiabre/",
+    },
   ],
   es: [
     {
@@ -93,6 +99,12 @@ const ELSEWHERE = {
       description: "mi perfil profesional y mi trayectoria laboral.",
       label: "ver perfil",
       href: "https://www.linkedin.com/in/josesubiabre/?locale=en",
+    },
+    {
+      source: "GitHub",
+      description: "el código detrás de los productos y herramientas que construyo.",
+      label: "ver perfil",
+      href: "https://github.com/josesubiabre/",
     },
   ],
 };
