@@ -37,6 +37,17 @@ const PROYECTOS: Record<Language, Proyecto[]> = {
       ],
     },
     {
+      name: "ATLIA",
+      description:
+        "an AI-powered platform for evaluating real estate development potential through zoning regulations, site analysis, and feasibility studies.",
+      stack: "Vue.js · Python · GIS · AI · DOCX",
+      images: [],
+      links: [
+        { label: "view project", href: "https://atlia-amber.vercel.app/" },
+        { label: "view code", href: "https://github.com/josesubiabre/atlia" },
+      ],
+    },
+    {
       name: "MorningTechDigest",
       description: "a small automation that reads tech news before i do.",
       stack: "Python · GitHub Actions · AI summaries · WhatsApp",
@@ -114,6 +125,17 @@ const PROYECTOS: Record<Language, Proyecto[]> = {
       links: [
         { label: "ver proyecto", href: "https://www.mivitae.cl/" },
         { label: "ver diseño", gallery: true },
+      ],
+    },
+    {
+      name: "ATLIA",
+      description:
+        "una plataforma con IA para evaluar el potencial de desarrollo inmobiliario mediante normativa urbana, análisis de terreno y estudios de cabida.",
+      stack: "Vue.js · Python · GIS · IA · DOCX",
+      images: [],
+      links: [
+        { label: "ver proyecto", href: "https://atlia-amber.vercel.app/" },
+        { label: "ver código", href: "https://github.com/josesubiabre/atlia" },
       ],
     },
     {
