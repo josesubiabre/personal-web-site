@@ -41,10 +41,16 @@ const PROYECTOS: Record<Language, Proyecto[]> = {
       description:
         "an AI-powered platform for evaluating real estate development potential through zoning regulations, site analysis, and feasibility studies.",
       stack: "Vue.js · Python · GIS · AI · DOCX",
-      images: [],
+      images: [
+        "built/ATLIA/ATLIA_Cabida_3D.png",
+        "built/ATLIA/ATLIA_Esquema_Planta.png",
+        "built/ATLIA/ATLIA_Zonas_Las_Condes.png",
+        "built/ATLIA/ATLIA_Zona_Info.png",
+        "built/ATLIA/ATLIA_Inicio.png",
+      ],
       links: [
         { label: "view project", href: "https://atlia-amber.vercel.app/" },
-        { label: "view code", href: "https://github.com/josesubiabre/atlia" },
+        { label: "view design", gallery: true },
       ],
     },
     {
@@ -132,10 +138,16 @@ const PROYECTOS: Record<Language, Proyecto[]> = {
       description:
         "una plataforma con IA para evaluar el potencial de desarrollo inmobiliario mediante normativa urbana, análisis de terreno y estudios de cabida.",
       stack: "Vue.js · Python · GIS · IA · DOCX",
-      images: [],
+      images: [
+        "built/ATLIA/ATLIA_Cabida_3D.png",
+        "built/ATLIA/ATLIA_Esquema_Planta.png",
+        "built/ATLIA/ATLIA_Zonas_Las_Condes.png",
+        "built/ATLIA/ATLIA_Zona_Info.png",
+        "built/ATLIA/ATLIA_Inicio.png",
+      ],
       links: [
         { label: "ver proyecto", href: "https://atlia-amber.vercel.app/" },
-        { label: "ver código", href: "https://github.com/josesubiabre/atlia" },
+        { label: "ver diseño", gallery: true },
       ],
     },
     {
